@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O-Loop - PM Case Study | Thasleema A S</title>
+<meta name="description" content="O-Loop: a Hardware-Software-as-a-Service ecosystem turning domestic organic waste into pesticide-free food via IoT smart-racks. PM case study.">
+<meta property="og:title" content="O-Loop - PM Case Study">
+<meta property="og:description" content="Kitchen waste in. Verified harvest out. An AI/IoT urban farming ecosystem for space-constrained Indian balconies.">
+<meta property="og:image" content="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/oloop-icon.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A12; --card: #15151f; --card-soft: #101018; --border: #29293a;
+    --gold: #F2B705; --coral: #FF5C7A; --teal: #2DD4BF;
+    --text: #F5F0E8; --muted: #b8b3ac; --dim: #706a63;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; line-height: 1.6; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .nav-name { font-family: 'Fraunces'; font-weight: 800; font-size: 18px; text-decoration: none; color: var(--text); }
+  .nav-links a { color: var(--dim); text-decoration: none; font-size: 14.5px; font-weight: 700; margin-left: 20px; }
+  .nav-links a:hover { color: var(--teal); }
+
+  .section { padding: 48px 0; position: relative; overflow: hidden; }
+  .glow { position: absolute; width: 340px; height: 340px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242,183,5,0.14), rgba(255,92,122,0.09) 55%, transparent 75%);
+    filter: blur(10px); z-index: 0; pointer-events: none; }
+  .section > * { position: relative; z-index: 1; }
+
+  h1, h2, h3 { font-family: 'Fraunces', serif; }
+  .eyebrow { font-size: 13.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--coral); }
+  h1 { font-size: 38px; font-weight: 900; line-height: 1.2; margin-top: 10px; }
+  h2 { font-size: 25px; font-weight: 800; margin-bottom: 18px; }
+  h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+
+  .hero-icon { width: 90px; height: 90px; margin-bottom: 18px; }
+  .hero-icon img { width: 100%; filter: drop-shadow(0 0 24px rgba(45,212,191,0.3)); }
+  .hook { font-size: 16.5px; color: var(--muted); margin-top: 14px; max-width: 640px; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; text-align: center; }
+  .stat-num { font-size: 22px; font-weight: 900; color: var(--teal); font-family: 'Fraunces'; }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .tile-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .tile { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+  .tile-emoji { font-size: 28px; margin-bottom: 10px; }
+  .tile-title { font-size: 14.5px; font-weight: 800; margin-bottom: 6px; }
+  .tile-body { font-size: 12.5px; color: var(--muted); }
+
+  .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .persona-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+  .persona-emoji { font-size: 28px; margin-bottom: 10px; }
+  .persona-name { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .persona-line { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+  .persona-line b { color: var(--teal); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+
+  .compete-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .compete-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; font-size: 13px; color: var(--muted); }
+  .compete-card b { color: var(--text); display: block; margin-bottom: 4px; font-size: 14px; }
+  .compete-card.winner { border-color: var(--teal); background: linear-gradient(160deg, #2DD4BF18, var(--card) 70%); }
+  .compete-card.winner b { color: var(--teal); }
+
+  .timeline-wrap { position: relative; padding: 10px 0; }
+  .timeline-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+  .stage-row { display: grid; grid-template-columns: 1fr 110px 1fr; align-items: start; margin-bottom: 32px; position: relative; }
+  .stage-row:last-child { margin-bottom: 0; }
+  .stage-marker { grid-column: 2; display: flex; justify-content: center; align-items: flex-start; padding-top: 6px; }
+  .stage-marker-inner { width: 84px; height: 84px; border-radius: 50%; background: var(--card); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; z-index: 2; font-size: 34px; }
+  .stage-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; }
+  .stage-row.left .stage-card { grid-column: 1; }
+  .stage-row.right .stage-card { grid-column: 3; }
+  .stage-num { font-family: 'Fraunces'; font-size: 11.5px; font-weight: 700; color: var(--dim); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .stage-name { font-size: 16.5px; font-weight: 800; margin-bottom: 8px; }
+  .stage-metric { display: inline-block; font-size: 11px; font-weight: 800; color: var(--teal); background: rgba(45,212,191,0.12); padding: 3px 10px; border-radius: 999px; }
+
+  @media (max-width: 700px) {
+    .stage-row { grid-template-columns: 90px 1fr; }
+    .stage-marker { grid-column: 1; }
+    .stage-row.left .stage-card, .stage-row.right .stage-card { grid-column: 2; }
+  }
+
+  .econ-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .econ-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center; }
+  .econ-num { font-size: 17px; font-weight: 900; color: var(--gold); font-family: 'Fraunces'; }
+  .econ-label { font-size: 10.5px; color: var(--muted); margin-top: 4px; }
+
+  .nsm-card { background: linear-gradient(160deg, #2DD4BF18, var(--card) 70%); border-left: 3px solid var(--teal); border-radius: 16px; padding: 26px 28px; }
+  .nsm-name { font-size: 19px; font-weight: 900; font-family: 'Fraunces'; color: var(--teal); margin-bottom: 12px; }
+  .nsm-card p { font-size: 14px; color: var(--muted); }
+
+  .pmf-card { background: var(--card); border-left: 3px solid var(--gold); border-radius: 16px; padding: 24px 26px; }
+  .pmf-num { font-size: 32px; font-weight: 900; color: var(--gold); font-family: 'Fraunces'; }
+  .pmf-card p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+  .swot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .swot-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; font-size: 13.5px; color: var(--muted); }
+  .swot-card b { display: block; margin-bottom: 6px; font-size: 14px; }
+  .swot-card.strength b { color: var(--teal); }
+  .swot-card.threat b { color: var(--coral); }
+
+  .roadmap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .roadmap-tile { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+  .roadmap-tile .phase-name { font-size: 13.5px; font-weight: 800; margin-bottom: 6px; }
+  .roadmap-tile .phase-bet { font-size: 11.5px; color: var(--muted); }
+
+  .back-link { display: inline-block; padding: 16px 20px; background: var(--card-soft); border: 1px solid var(--border); border-radius: 14px; font-size: 13.5px; color: var(--muted); text-decoration: none; }
+  .back-link b { color: var(--teal); display: block; margin-bottom: 4px; font-size: 14.5px; }
+  .back-link:hover { border-color: var(--teal); }
+  .link-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
+  .link-row .back-link { flex: 1; min-width: 220px; }
+
+  footer { text-align: center; padding: 40px 0; color: var(--dim); font-size: 13px; }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 28px; }
+    .stat-row, .persona-grid, .tile-grid, .roadmap-grid, .econ-row, .compete-grid, .swot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 460px) {
+    .stat-row, .persona-grid, .roadmap-grid, .econ-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav">
+    <a class="nav-name" href="https://thasli-dot.github.io/thasleema-portfolio-assets/">Thasleema A S</a>
+    <div class="nav-links">
+      <a href="https://thasli-dot.github.io/thasleema-portfolio-assets/">Portfolio</a>
+    </div>
+  </div>
+
+  <div class="section" id="hero">
+    <div class="glow" style="top:-100px; right:-100px;"></div>
+    <div class="hero-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/oloop-icon.png" alt="O-Loop"></div>
+    <div class="eyebrow">PM Case Study</div>
+    <h1>O-Loop</h1>
+    <p class="hook">Kitchen waste in. Verified harvest out. A Hardware-Software-as-a-Service ecosystem turning domestic organic waste into pesticide-free food via IoT smart-racks, built for the 34.5 sq. ft. Indian balcony.</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">480M</div><div class="stat-label">TAM</div></div>
+      <div class="stat-card"><div class="stat-num">75M</div><div class="stat-label">SAM</div></div>
+      <div class="stat-card"><div class="stat-num">1.5M</div><div class="stat-label">SOM (Yr 1-2)</div></div>
+    </div>
+    <p style="font-size:12.5px; color:var(--dim); margin-top:16px; font-style:italic;">Methodology note: this is a strategic PM exercise, not a shipped product &mdash; all figures below are modeled projections from survey data, market sizing, and funnel reasoning, not live production analytics.</p>
+  </div>
+
+
+  <div class="section" id="problem">
+    <div class="glow" style="top:20%; left:-120px;"></div>
+    <h2>Three Failures of Urban Indian Food Systems</h2>
+    <div class="tile-grid cols-2">
+      <div class="tile"><div class="tile-emoji">🏷️</div><div class="tile-title">The Transparency Deficit</div><div class="tile-body">2&ndash;3x premium for "organic" produce with zero proof of how it was grown or handled</div></div>
+      <div class="tile"><div class="tile-emoji">🗑️</div><div class="tile-title">The Composting Chaos Gap</div><div class="tile-body">Manual composting fails on odor and space &mdash; nutrient-rich waste goes to landfill instead</div></div>
+      <div class="tile"><div class="tile-emoji">🌱</div><div class="tile-title">High Gardening Attrition</div><div class="tile-body">80% of urban gardening attempts fail within 90 days &mdash; the barrier is fear of failure, not lack of interest</div></div>
+    </div>
+  </div>
+
+
+  <div class="section" id="personas">
+    <div class="glow" style="bottom:-80px; right:-100px;"></div>
+    <h2>Three Users, Three Retention Levers</h2>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-emoji">👩‍💼</div>
+        <div class="persona-name">Sneha, The Analytical Parent</div>
+        <div class="persona-line"><b>Need</b>Verified, chemical-free food for her child &mdash; with data to back it</div>
+        <div class="persona-line"><b>Hook</b>Purity Scan &amp; Nutrient Density Score</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-emoji">👨‍💻</div>
+        <div class="persona-name">Arjun, The Busy Bio-Hacker</div>
+        <div class="persona-line"><b>Need</b>A set-it-and-forget-it system that manages biology like code</div>
+        <div class="persona-line"><b>Hook</b>Remote IoT monitoring, zero neglect-driven churn</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-emoji">👴</div>
+        <div class="persona-name">Mr. Iyer, The Community Catalyst</div>
+        <div class="persona-line"><b>Need</b>A lightweight vertical system and a way to reconnect with neighbors</div>
+        <div class="persona-line"><b>Hook</b>Barter Marketplace &amp; Cloud Farm Extensions</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" id="solution">
+    <div class="glow" style="top:-100px; left:30%;"></div>
+    <h2>Three Pillars. One Closed Loop.</h2>
+    <div class="tile-grid cols-2">
+      <div class="tile"><div class="tile-emoji">♻️</div><div class="tile-title">Metabolic Sync</div><div class="tile-body">Waste &rarr; Wealth. AI calculates NPK equivalent from photographed kitchen waste, routes it into the Smart-Rack &mdash; creates switching-cost stickiness via the metabolic record</div></div>
+      <div class="tile"><div class="tile-emoji">🛡️</div><div class="tile-title">Purity Guardian</div><div class="tile-body">Data-backed health. AI-vision + IoT sensor fusion verify zero pesticides &mdash; a Purity Confidence Score no supermarket supply chain can offer</div></div>
+      <div class="tile"><div class="tile-emoji">🤝</div><div class="tile-title">Collective Cloud</div><div class="tile-body">Community &rarr; Scale. Credit ledger for surplus barter and shared Cloud Farm plots &mdash; network effects create a social moat</div></div>
+    </div>
+  </div>
+
+
+  <div class="section" id="competitive">
+    <div class="glow" style="top:10%; right:-100px;"></div>
+    <h2>No One Connects Waste, Growth, and Trust</h2>
+    <div class="compete-grid">
+      <div class="compete-card"><b>Gardening apps</b>Passive tracking, zero waste integration, zero automation</div>
+      <div class="compete-card"><b>Organic delivery</b>Linear buying, unverified labels, no trust layer</div>
+      <div class="compete-card"><b>Composting kits</b>Manual decomposing only, no growth loop, no verification</div>
+      <div class="compete-card winner"><b>O-Loop</b>Managed ecosystem: automated metabolic sync + verified purity + 90% IoT automation, together</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="genesis">
+    <div class="glow" style="top:-100px; right:-100px;"></div>
+    <div class="eyebrow">The First-Win Principle</div>
+    <h2>The Genesis User Flow</h2>
+    <p style="color:var(--muted); font-size:14.5px; margin-bottom:24px; max-width:600px;">The MVP is engineered to deliver a successful microgreen harvest within 14 days &mdash; one verified win proves the system works before the user has any reason to doubt it.</p>
+    <div class="timeline-wrap">
+      <svg class="timeline-svg" viewBox="0 0 200 1000" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="genesisGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2DD4BF"/>
+            <stop offset="50%" stop-color="#F2B705"/>
+            <stop offset="100%" stop-color="#FF5C7A"/>
+          </linearGradient>
+        </defs>
+        <path d="M100,0 C100,40 82,50 82,90 C82,130 118,210 118,250 C118,290 82,370 82,410 C82,450 118,530 118,570 C118,610 82,690 82,730 C82,770 100,850 100,900 C100,940 100,960 100,1000"
+              stroke="url(#genesisGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner">📱</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Step 1</div>
+          <div class="stage-name">Onboard</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">AR-Audit runs; O-Ald suggests a First Crop Profile optimized for Sneha&rsquo;s city and season.</div>
+          <span class="stage-metric">Time-to-Setup &darr;</span>
+        </div>
+      </div>
+      <div class="stage-row right">
+        <div class="stage-marker"><div class="stage-marker-inner">📦</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Step 2</div>
+          <div class="stage-name">Deploy</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Hardware delivered via national logistics; plug-and-play IoT activation via app.</div>
+          <span class="stage-metric">Activation Rate &uarr;</span>
+        </div>
+      </div>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner">🔄</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Step 3</div>
+          <div class="stage-name">Loop</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Sneha logs 500g of waste &rarr; app confirms Nutrient Sync &rarr; IoT sensors handle precision hydration.</div>
+          <span class="stage-metric">Waste-to-Nutrient Rate &uarr;</span>
+        </div>
+      </div>
+      <div class="stage-row right">
+        <div class="stage-marker"><div class="stage-marker-inner">📊</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Step 4</div>
+          <div class="stage-name">Grow</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">O-Ald sends a weekly Metabolic Pulse report benchmarking progress against the city average.</div>
+          <span class="stage-metric">Time-to-First-Harvest &darr;</span>
+        </div>
+      </div>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner">🥬</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Step 5</div>
+          <div class="stage-name">Harvest + Swap</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Sneha scans her harvest, gets a Purity Confidence Score, and lists surplus on the Regional O-Loop Market.</div>
+          <span class="stage-metric">Verified Yield Velocity &uarr;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" id="economics">
+    <div class="glow" style="bottom:-80px; left:20%;"></div>
+    <h2>The Grocery Arbitrage Argument</h2>
+    <div class="econ-row">
+      <div class="econ-card"><div class="econ-num">&#8377;2,700+</div><div class="econ-label">Net monthly household ROI by Month 3</div></div>
+      <div class="econ-card"><div class="econ-num">~4x</div><div class="econ-label">LTV / CAC ratio</div></div>
+      <div class="econ-card"><div class="econ-num">4-6 mo</div><div class="econ-label">Payback period</div></div>
+      <div class="econ-card"><div class="econ-num">&#8377;299/mo</div><div class="econ-label">Core subscription</div></div>
+    </div>
+  </div>
+
+
+  <div class="section" id="nsm">
+    <div class="glow" style="top:10%; left:-100px;"></div>
+    <h2>North Star Metric</h2>
+    <div class="nsm-card">
+      <div class="nsm-name">Verified Yield Velocity</div>
+      <p>Total weight (kg) of purity-verified harvest produced per active user per month &mdash; captures IoT reliability, AI management success, and engagement with the waste-sync loop in one number. If it grows, the whole ecosystem is healthy.</p>
+    </div>
+  </div>
+
+
+  <div class="section" id="pmf">
+    <div class="glow" style="bottom:-60px; right:20%;"></div>
+    <h2>Product-Market Fit</h2>
+    <div class="pmf-card">
+      <div class="pmf-num">48% vs. 40% benchmark</div>
+      <p>Pilot users who said they'd be very disappointed without O-Loop &mdash; citing Verified Purity and Saturday Vault convenience specifically. Growth was pull, not push: word-of-mouth between parents sharing harvest photos, not paid acquisition.</p>
+    </div>
+  </div>
+
+
+  <div class="section" id="swot">
+    <div class="glow" style="top:15%; right:-100px;"></div>
+    <h2>The Real Moat Isn't the Hardware</h2>
+    <div class="swot-grid">
+      <div class="swot-card strength"><b>Top Strength</b>Proprietary O-Ald AI + integrated HSaaS model creates metabolic lock-in a pure-software competitor can't replicate</div>
+      <div class="swot-card threat"><b>Top Threat</b>Incumbent entry (Xiaomi, Reliance-scale players) with subsidized hardware</div>
+    </div>
+    <p style="margin-top:14px; font-size:13.5px; color:var(--muted);"><b style="color:var(--teal)">Mitigation:</b> a competitor can copy the physical rack. They can't replicate years of hyper-local biological data from thousands of Indian balconies &mdash; that data moat is the actual defensibility, not the hardware.</p>
+  </div>
+
+
+  <div class="section" id="roadmap">
+    <div class="glow" style="bottom:-80px; right:-80px;"></div>
+    <h2>Roadmap</h2>
+    <div class="roadmap-grid">
+      <div class="roadmap-tile"><div class="phase-name">Genesis</div><div class="phase-bet">Core IoT + AI stability across Bengaluru and Mumbai climate profiles</div></div>
+      <div class="roadmap-tile"><div class="phase-name">Metabolic</div><div class="phase-bet">The waste-to-nutrient loop, live with hyper-local delivery partners</div></div>
+      <div class="roadmap-tile"><div class="phase-name">Collective</div><div class="phase-bet">National barter marketplace and Giftify cross-city harvest sharing</div></div>
+      <div class="roadmap-tile"><div class="phase-name">Cloud</div><div class="phase-bet">Cloud Farm pilots for deep-root crops balconies can't support</div></div>
+    </div>
+  </div>
+
+
+  <div class="section" id="closing">
+    <div class="glow" style="top:-60px; left:20%;"></div>
+    <div class="link-row">
+      <a class="back-link" href="https://www.figma.com/design/uZIxGT7bYYkejrfZbPqi7A/PM-projects?node-id=1287-1453&amp;t=HX2chsQBlYSNgrjp-0" target="_blank">
+        <b>View Figma Prototype &rarr;</b>
+        O-Loop User Flow and UI design work.
+      </a>
+      <a class="back-link" href="https://app.notion.com/p/3738095c9a01802c8c38de1109546c5e" target="_blank">
+        <b>Full case study on Notion &rarr;</b>
+        Reference for in-depth work: full design thinking process, PRD, user story map, HEART/AARRR frameworks, and full unit economics.
+      </a>
+    </div>
+  </div>
+
+  <footer>&copy; Thasleema A S</footer>
+</div>
+</body>
+</html>
