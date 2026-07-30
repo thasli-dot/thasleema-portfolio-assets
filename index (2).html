@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thasleema A S - AI Product Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A12;
+    --card: #15151f;
+    --card-soft: #101018;
+    --border: #29293a;
+    --gold: #F2B705;
+    --coral: #FF5C7A;
+    --teal: #2DD4BF;
+    --text: #F5F0E8;
+    --muted: #b8b3ac;
+    --dim: #706a63;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; line-height: 1.6; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .nav-name { font-family: 'Fraunces'; font-weight: 800; font-size: 18px; }
+  .nav-links a { color: var(--dim); text-decoration: none; font-size: 14.5px; font-weight: 700; margin-left: 20px; }
+  .nav-links a:hover { color: var(--teal); }
+
+  .section { padding: 56px 0; position: relative; overflow: hidden; }
+  .glow { position: absolute; width: 340px; height: 340px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242,183,5,0.14), rgba(255,92,122,0.09) 55%, transparent 75%);
+    filter: blur(10px); z-index: 0; pointer-events: none; }
+  .section > * { position: relative; z-index: 1; }
+
+  h1, h2, h3 { font-family: 'Fraunces', serif; }
+  .eyebrow { font-size: 13.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--coral); }
+  h1 { font-size: 44px; font-weight: 900; line-height: 1.15; margin-top: 12px; }
+  h2 { font-size: 27px; font-weight: 800; margin-bottom: 20px; }
+  h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+
+  .hero-layout { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .hero-text { flex: 1; min-width: 280px; }
+  .hero-orb-wrap { flex-shrink: 0; width: 160px; }
+  .hero-orb-wrap img { width: 100%; filter: drop-shadow(0 0 32px rgba(242,183,5,0.35)); }
+
+  .quote-block { padding: 28px 30px; border-radius: 20px; background: linear-gradient(160deg, #F2B70518, var(--card) 70%); border-left: 3px solid var(--gold); margin: 26px 0; }
+  .quote-block p { font-size: 19px; font-weight: 700; line-height: 1.4; font-family: 'Fraunces'; }
+  .quote-block .attribution { margin-top: 10px; font-size: 14px; color: var(--dim); font-weight: 600; }
+
+  .callout { background: var(--card); border-radius: 18px; padding: 26px 28px; border: 1px solid var(--border); margin-top: 24px; }
+  .callout .role { font-size: 17px; font-weight: 800; margin-bottom: 12px; }
+  .callout p { color: var(--muted); font-size: 15px; }
+  .live-products { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .live-products div:first-child { font-weight: 800; font-size: 14.5px; margin-bottom: 2px; }
+  .live-products a { color: var(--teal); font-weight: 700; text-decoration: none; font-size: 14.5px; }
+  .live-products a:hover { text-decoration: underline; }
+
+  .pt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .pt-card { background: var(--card); border-radius: 16px; padding: 20px 22px; border: 1px solid var(--border); font-size: 14.5px; }
+  .pt-card b { color: var(--gold); }
+
+  .tile-grid { display: grid; gap: 16px; }
+  .tile-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .tile-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .tile { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 24px 18px; text-align: center; }
+  .tile img { width: 62px; height: 62px; margin: 0 auto 14px; object-fit: contain; display:block; }
+  .tile-title { font-size: 14.5px; font-weight: 800; margin-bottom: 8px; }
+  .tile-body { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+  .journey-step { display: flex; gap: 22px; align-items: flex-start; margin-bottom: 30px; }
+  .journey-step:last-child { margin-bottom: 0; }
+  .journey-icon { flex-shrink: 0; width: 58px; height: 58px; }
+  .journey-icon img { width: 100%; filter: drop-shadow(0 0 14px rgba(242,183,5,0.25)); }
+  .journey-num { font-family: 'Fraunces'; font-size: 13px; font-weight: 700; color: var(--coral); margin-bottom: 5px; }
+  .journey-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+  .journey-body { font-size: 14.5px; color: var(--muted); }
+
+  .strat-intro { font-size: 15.5px; color: var(--muted); font-style: italic; border-left: 3px solid var(--gold); padding-left: 18px; margin-bottom: 26px; font-family: 'Fraunces'; }
+  .strat-card { background: var(--card); border-radius: 16px; padding: 22px 24px; border: 1px solid var(--border); margin-bottom: 16px; display: flex; gap: 20px; align-items: flex-start; }
+  .strat-card:last-child { margin-bottom: 0; }
+  .strat-icon { flex-shrink: 0; width: 56px; height: 56px; }
+  .strat-icon img { width: 100%; object-fit: contain; }
+  .strat-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+  .strat-tagline { color: var(--gold); font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+  .strat-desc { color: var(--muted); font-size: 14px; margin-bottom: 10px; }
+  .strat-bullets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .strat-bullets span { background: var(--card-soft); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; font-size: 12px; color: var(--muted); }
+  .strat-card a { color: var(--teal); font-weight: 700; text-decoration: none; font-size: 13.5px; }
+
+  .about-body p { color: var(--muted); font-size: 15.5px; margin-bottom: 16px; }
+  .connect-row { display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
+  .connect-row a { color: var(--teal); text-decoration: none; }
+
+  footer { text-align: center; padding: 40px 0; color: var(--dim); font-size: 13px; }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 32px; }
+    .tile-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .hero-orb-wrap { width: 110px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="nav">
+    <div class="nav-name">Thasleema A S</div>
+    <div class="nav-links">
+      <a href="https://thasli-dot.github.io/DoneHo-Portfolio/" target="_blank">DoneHo</a>
+      <a href="https://www.linkedin.com/in/thasleema-a-s-11aa36412/" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <div class="section" id="hero">
+    <div class="glow" style="top:-120px; right:-100px;"></div>
+    <div class="eyebrow">AI Product Manager &middot; GenAI &amp; Multi-Agent Systems</div>
+    <div class="hero-layout">
+      <div class="hero-text">
+        <h1>&quot;Build the right thing,<br>then build it right.&quot;</h1>
+      </div>
+      <div class="hero-orb-wrap"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/hero-orb.png" alt="signature glow orb"></div>
+    </div>
+
+    <div class="quote-block">
+      <p>&quot;The problem was never your discipline. It was the plan that expected a perfect week.&quot;</p>
+      <div class="attribution">Five years inside one of India&rsquo;s toughest exams &mdash; three spent understanding the problem as an educator, two spent solving it as a founder &mdash; taught me this, the hard way.</div>
+    </div>
+
+    <div class="callout">
+      <div class="role">AI Product Manager | GenAI &amp; Multi-Agent Systems | 0&rarr;1 Product Development | Founder</div>
+      <p>Before learning product frameworks, I spent years solving product problems &mdash; retaining customers, improving outcomes, driving referrals, and building systems people chose to keep using. Today I combine that founder experience with structured product thinking to design, validate, and prototype LLM-based, AI-driven products across GenAI, social commerce, growth, and platform ecosystems.</p>
+      <div class="live-products">
+        <div>Live Products:</div>
+        <a href="https://donehov2.lovable.app/" target="_blank">DoneHo (AI Agentic Weekly Execution System)</a>
+        <a href="https://giftify-ecosystem-pr-76z0.bolt.host/" target="_blank">Giftify (WhatsApp Gifting Flow)</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" id="highlights">
+    <div class="glow" style="top:10%; left:-120px;"></div>
+    <h2>Highlights</h2>
+    <div class="pt-grid">
+      <div class="pt-card">Built and evaluated a <b>6-agent LLM-based system</b> component-by-component &mdash; deterministic engines automated-tested, AI agents verified across repeated live runs, guardrails checked with zero violations</div>
+      <div class="pt-card">One real product finding surfaced through testing and <b>disclosed, not hidden</b> &mdash; the kind of judgment call a live product actually needs</div>
+      <div class="pt-card"><b>2+ years</b> of founder-led product ownership</div>
+      <div class="pt-card"><b>90%</b> customer retention through product-led delivery</div>
+      <div class="pt-card"><b>100%</b> referral-driven acquisition with zero paid marketing</div>
+      <div class="pt-card"><b>2</b> live AI-powered product prototypes, 1 deployed on Render</div>
+      <div class="pt-card"><b>5</b> end-to-end PM case studies with PRDs, metrics frameworks, and prototypes</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="journey">
+    <div class="glow" style="bottom:-100px; right:-100px;"></div>
+    <h2>The Instinct Behind the Title</h2>
+    
+    <div class="journey-step">
+      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-1-discovery.png" alt="Ran discovery before I knew the term"></div>
+      <div>
+        <div class="journey-num">STAGE 1</div>
+        <div class="journey-title">Ran discovery before I knew the term</div>
+        <div class="journey-body">As an educator, every session was a live experiment: which schedule kept students showing up, which teaching moment moved retention, which nudge pushed someone deeper into the course instead of dropping off. I was reading behavior and shipping fixes &mdash; I just did not call it a funnel yet.</div>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-2-iterate.png" alt="Treated feedback like a sprint cadence"></div>
+      <div>
+        <div class="journey-num">STAGE 2</div>
+        <div class="journey-title">Treated feedback like a sprint cadence</div>
+        <div class="journey-body">Materials, pacing, delivery &mdash; all rebuilt on every cycle of real feedback, not once a year. Retention and revenue moved because the loop never stopped. Same discipline as agile iteration, minus the ceremony and the title.</div>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-3-venture.png" alt="Built a zero-CAC business on positioning, not budget"></div>
+      <div>
+        <div class="journey-num">STAGE 3</div>
+        <div class="journey-title">Built a zero-CAC business on positioning, not budget</div>
+        <div class="journey-body">Took that instinct and built a venture: freemium model, zero paid acquisition, 90% retention, 100% referral-driven growth. Competitive analysis found a low-cost, high-volume position competitors were not occupying &mdash; engineered around real &quot;wow&quot; moments, not discounts.</div>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-4-ai.png" alt="Used GenAI as a growth lever, before it was a job requirement"></div>
+      <div>
+        <div class="journey-num">STAGE 4</div>
+        <div class="journey-title">Used GenAI as a growth lever, before it was a job requirement</div>
+        <div class="journey-body">Learned prompting early to generate visual concept notes, crisp explainer videos, and quick-reference cheat sheets &mdash; content that measurably drove deeper adoption. Not a resume line. A distribution channel.</div>
+      </div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-5-formal.png" alt="Formalized the instinct &mdash; did not discover it"></div>
+      <div>
+        <div class="journey-num">STAGE 5</div>
+        <div class="journey-title">Formalized the instinct &mdash; did not discover it</div>
+        <div class="journey-body">An AI PM course did not teach me product thinking. It gave structure, vocabulary, and technical depth to five years of decisions I was already making &mdash; discovery, iteration, GTM, retention &mdash; under different job titles.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" id="skills">
+    <div class="glow" style="top:-100px; left:30%;"></div>
+    <h2>Core Skills</h2>
+    <div class="tile-grid cols-2">
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/skill-ai.png" alt="AI Product Development">
+      <div class="tile-title">AI Product Development</div>
+      <div class="tile-body">LLM-based systems &middot; Generative AI (GenAI) &middot; Google ADK &middot; Gemini API &middot; RAG (Supabase pgvector) &middot; Multi-agent system design &middot; Prompt engineering &middot; Agent evaluation &amp; guardrail testing</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/skill-technical.png" alt="Technical Execution">
+      <div class="tile-title">Technical Execution</div>
+      <div class="tile-body">Python &middot; FastAPI &middot; Pydantic schema design &middot; Event-driven architecture &middot; Git/GitHub &middot; Cloud deployment (Render) &middot; React/TypeScript</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/skill-strategy.png" alt="Product Strategy">
+      <div class="tile-title">Product Strategy</div>
+      <div class="tile-body">North Star Metrics &middot; Roadmapping &middot; OKRs &middot; RICE/MoSCoW/WSJF &middot; Competitive Analysis &middot; GTM Strategy &middot; Agile ways of working</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/skill-discovery.png" alt="Discovery &amp; Analytics">
+      <div class="tile-title">Discovery &amp; Analytics</div>
+      <div class="tile-body">User Interviews &middot; Stakeholder Management &middot; Cross-functional Collaboration &middot; AARRR &middot; HEART &middot; PRD Writing &middot; Mixpanel &middot; PostHog</div>
+    </div></div>
+  </div>
+
+
+  <div class="section" id="tools">
+    <div class="glow" style="bottom:-100px; right:20%;"></div>
+    <h2>Tools</h2>
+    <div class="tile-grid cols-3">
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/tools-design.png" alt="Design &amp; Prototyping">
+      <div class="tile-title">Design &amp; Prototyping</div>
+      <div class="tile-body">Figma &middot; Miro &middot; Lovable &middot; Bolt &middot; Canva</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/tools-tracking.png" alt="Project &amp; Delivery Tracking">
+      <div class="tile-title">Project &amp; Delivery Tracking</div>
+      <div class="tile-body">Jira &middot; Linear &middot; Trello &middot; Notion</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/tools-ai-dev.png" alt="AI Development">
+      <div class="tile-title">AI Development</div>
+      <div class="tile-body">Google ADK &middot; Gemini API &middot; Claude &middot; ChatGPT</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/tools-analytics.png" alt="Analytics &amp; Validation">
+      <div class="tile-title">Analytics &amp; Validation</div>
+      <div class="tile-body">Mixpanel &middot; PostHog &middot; Google Analytics &middot; Google Forms</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/tools-comms.png" alt="Communication &amp; Collaboration">
+      <div class="tile-title">Communication &amp; Collaboration</div>
+      <div class="tile-body">Slack &middot; Google Workspace (Docs, Sheets) &middot; Zoom/Google Meet</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/tools-deploy.png" alt="Version Control &amp; Deployment">
+      <div class="tile-title">Version Control &amp; Deployment</div>
+      <div class="tile-body">GitHub &middot; Render</div>
+    </div></div>
+  </div>
+
+
+  <div class="section" id="doneho">
+    <div class="glow" style="top:20%; right:-120px;"></div>
+    <h2>Projects</h2>
+    <h3>DoneHo &mdash; AI Agentic Weekly Execution System</h3>
+    <div class="tile-grid cols-3">
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/doneho-stack.png" alt="Stack">
+      <div class="tile-title">Stack</div>
+      <div class="tile-body">Google ADK (Gemini 2.5 Flash) &middot; FastAPI &middot; Supabase (pgvector) &middot; Render &middot; React/TS (Lovable)</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/doneho-architecture.png" alt="Architecture">
+      <div class="tile-title">Architecture</div>
+      <div class="tile-body">6 narrow AI agents + zero-LLM Deterministic Engine &middot; RAG-retrieved reasoning patterns per-request</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/doneho-validation.png" alt="Validation">
+      <div class="tile-title">Validation</div>
+      <div class="tile-body">52% Sean Ellis PMF (40% benchmark) &middot; 15 interviews, 6 segments</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/doneho-evaluated.png" alt="Evaluated">
+      <div class="tile-title">Evaluated</div>
+      <div class="tile-body">7-part framework &middot; 12+ guardrail checks, 0 violations &middot; 2 findings disclosed</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/doneho-status.png" alt="Status">
+      <div class="tile-title">Status</div>
+      <div class="tile-body">Live app &middot; 20 deployed API endpoints &middot; Kaggle Vibe Coding Agents Capstone</div>
+    </div>
+    <div class="tile">
+      <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/doneho-solo.png" alt="Built Solo">
+      <div class="tile-title">Built Solo</div>
+      <div class="tile-body">Architecture, backend, frontend integration, and evaluation, end to end</div>
+    </div></div>
+    <div style="margin-top:20px; display:flex; gap:22px; flex-wrap:wrap;">
+      <a href="https://thasli-dot.github.io/DoneHo-Portfolio/" target="_blank" style="color:var(--teal); font-weight:700; text-decoration:none; font-size:14.5px;">View Project &rarr;</a>
+      <a href="https://youtu.be/CRP1rMCoRxU" target="_blank" style="color:var(--teal); font-weight:700; text-decoration:none; font-size:14.5px;">Product Walkthrough &rarr;</a>
+      <a href="https://github.com/thasli-dot/doneho-backend_v2" target="_blank" style="color:var(--teal); font-weight:700; text-decoration:none; font-size:14.5px;">Code &rarr;</a>
+    </div>
+  </div>
+
+
+  <div class="section" id="strategic">
+    <div class="glow" style="bottom:-60px; left:-100px;"></div>
+    <h2>Strategic Thinking</h2>
+    <div class="strat-intro">While DoneHo proves I can build and evaluate an AI product, these four case studies prove I can think like a PM before a single line of code gets written &mdash; North Star metrics, competitive analysis, and GTM strategy across fintech, platform monetization, and growth.</div>
+    
+    <div class="strat-card">
+      <div class="strat-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/janani-icon.png" alt="1. Janani Engine"></div>
+      <div>
+        <div class="strat-title">1. Janani Engine</div>
+        <div class="strat-tagline">Turning informal trust into financial sovereignty.</div>
+        <div class="strat-desc">A 0&rarr;1 fintech/social-impact platform for India&rsquo;s informal women-led economy, with a defended North Star metric (Total Monthly Successful Value Transactions) and full competitive analysis.</div>
+        <div class="strat-bullets"><span>North Star Metric (TMSVT)</span><span>Activation funnel</span><span>Competitive analysis</span></div>
+        <a href="https://app.notion.com/p/3728095c9a018037849cdc56d7c8baba" target="_blank">View case study &rarr;</a>
+      </div>
+    </div>
+    <div class="strat-card">
+      <div class="strat-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/pentamesh-icon.png" alt="2. WhatsApp Pentamesh"></div>
+      <div>
+        <div class="strat-title">2. WhatsApp Pentamesh</div>
+        <div class="strat-tagline">Repositioning WhatsApp&rsquo;s 3B users into a monetization engine &mdash; zero new apps.</div>
+        <div class="strat-desc">1 full production-ready PRD (Giftify) &middot; 4 discovery-phase filaments &middot; 5 Jira epics &middot; 30+ user stories &middot; Figma prototype &middot; Live prototype on Bolt.</div>
+        <div class="strat-bullets"><span>Production-ready PRD</span><span>30+ user stories</span><span>Jira epics</span><span>Live prototype</span></div>
+        <a href="https://app.notion.com/p/3748095c9a0180d79dace96f731b9f50" target="_blank">View case study &rarr;</a>
+      </div>
+    </div>
+    <div class="strat-card">
+      <div class="strat-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/oloop-icon.png" alt="3. O-Loop"></div>
+      <div>
+        <div class="strat-title">3. O-Loop</div>
+        <div class="strat-tagline">Kitchen waste in. Verified harvest out.</div>
+        <div class="strat-desc">A Hardware-Software-as-a-Service (HSaaS) ecosystem turning domestic organic waste into pesticide-free food via IoT smart-racks, designed for space-constrained Indian balconies.</div>
+        <div class="strat-bullets"><span>HSaaS business model</span><span>IoT lifecycle design</span><span>3-phase roadmap</span></div>
+        <a href="https://app.notion.com/p/3738095c9a01802c8c38de1109546c5e" target="_blank">View case study &rarr;</a>
+      </div>
+    </div>
+    <div class="strat-card">
+      <div class="strat-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/amazon-music-icon.png" alt="4. Amazon Music India"></div>
+      <div>
+        <div class="strat-title">4. Amazon Music India</div>
+        <div class="strat-tagline">Product-led acquisition and engagement.</div>
+        <div class="strat-desc">A full PLG + GTM framework targeting Bharat users: Ritual Engine discovery loops, sachet Recharge Pass pricing, vernacular-first UI, and viral WhatsApp status sharing &mdash; reduced time to Magic Moment to 2 taps.</div>
+        <div class="strat-bullets"><span>AARRR framework</span><span>Referral loops</span><span>Vernacular onboarding</span></div>
+        <a href="https://app.notion.com/p/37e8095c9a0180a3bda9ed023d4fa758" target="_blank">View case study &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" id="about">
+    <div class="glow" style="top:-80px; right:10%;"></div>
+    <h2>About Me</h2>
+    <h3>Who I am?</h3>
+    <div class="about-body">
+      <p>I spent three years as an educator for UPSC aspirants across India &mdash; and somewhere in that work, I became a product person without knowing it. Every day was an exercise in taking a complex, high-stakes system and turning it into a simple, actionable decision for someone with very little margin for error.</p>
+      <p>Then I built something: a boutique EdTech business, from zero, that hit 90% retention and grew entirely through word of mouth &mdash; no ad spend, no growth hacks, just a product people did not want to leave. That is when I realized I had been doing product management for years without the title.</p>
+      <p>Now I am formalizing that instinct &mdash; five live case studies, working prototypes, and PRDs built using industry-standard product management practices &mdash; because the highest-leverage thing I can do next is build infrastructure for the users I have spent years understanding.</p>
+    </div>
+  </div>
+
+
+  <div class="section" id="connect">
+    <div class="glow" style="bottom:-80px; left:20%;"></div>
+    <h2>Let's Connect</h2>
+    <div class="connect-row">
+      <div>Email: thasliwork95@gmail.com</div>
+      <a href="https://www.linkedin.com/in/thasleema-a-s-11aa36412/" target="_blank">LinkedIn: linkedin.com/in/thasleema-a-s</a>
+      <div>9606249798</div>
+      <div>Bengaluru, India</div>
+    </div>
+  </div>
+
+  <footer>&copy; Thasleema A S</footer>
+</div>
+</body>
+</html>
