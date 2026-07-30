@@ -135,6 +135,12 @@
   .insight-item { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; font-size: 13.5px; color: var(--muted); display: flex; gap: 12px; align-items: flex-start; }
   .insight-item .arrow-out { color: var(--gold); font-weight: 800; flex-shrink: 0; }
 
+  .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .gallery-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .gallery-card img { width: 100%; height: auto; display: block; }
+  .gallery-label { padding: 12px 14px; font-size: 13px; font-weight: 800; color: var(--text); }
+  @media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; } }
+
   footer { text-align: center; padding: 40px 0; color: var(--dim); font-size: 13px; }
 
   @media (max-width: 700px) {
@@ -166,6 +172,7 @@
       <div class="stat-card"><div class="stat-num">TMSVT</div><div class="stat-label">North Star Metric</div></div>
       <div class="stat-card"><div class="stat-num">+12%</div><div class="stat-label">Activation lift</div></div>
     </div>
+    <p style="font-size:12.5px; color:var(--dim); margin-top:16px; font-style:italic;">Methodology note: this is a strategic PM exercise, not a shipped product &mdash; all figures below are modeled projections from user research and funnel reasoning, not live production analytics.</p>
   </div>
 
 
@@ -279,6 +286,47 @@
       <div class="leak-stat">40% drop-off</div>
       <p>At the verification stage &mdash; the single largest leak in the entire funnel, caused by fear of data theft and photo-upload difficulty. Everything else in the product is downstream of fixing this.</p>
       <div class="fix-row"><b>The fix:</b> ID masking (number only, no document scan) + CSC-assisted offline touchpoint &mdash; result: +12% activation.</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="dashboard">
+    <div class="glow" style="top:-100px; left:-100px;"></div>
+    <h2>The Dashboard</h2>
+    <p style="color:var(--muted); font-size:14.5px; margin-bottom:22px; max-width:600px;">Eight views built to answer one question each &mdash; who's converting, where they drop, and what predicts who becomes a Leader Janani.</p>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/DI%20F.png" alt="Dashboard Insights">
+        <div class="gallery-label">Dashboard Insights</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/FUN.png" alt="Funnel Analytics">
+        <div class="gallery-label">Funnel Analytics</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/event%20a.png" alt="Event Tracking">
+        <div class="gallery-label">Event Tracking</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/Heatmaps%20and%20paths.png" alt="Heatmaps &amp; User Paths">
+        <div class="gallery-label">Heatmaps &amp; User Paths</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/Voice.png" alt="Voice AI Usage">
+        <div class="gallery-label">Voice AI Usage</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/cohorts%20new.png" alt="Cohort Analysis">
+        <div class="gallery-label">Cohort Analysis</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/Predictive.png" alt="Predictive Insights">
+        <div class="gallery-label">Predictive Insights</div>
+      </div>
+      <div class="gallery-card">
+        <img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/comm%20nw.png" alt="Community Network">
+        <div class="gallery-label">Community Network</div>
+      </div>
     </div>
   </div>
 
