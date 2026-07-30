@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Janani Engine - PM Case Study | Thasleema A S</title>
+<meta name="description" content="Janani Engine: a trust + financial formalization platform for 63M informal women entrepreneurs in India. PM case study.">
+<meta property="og:title" content="Janani Engine - PM Case Study">
+<meta property="og:description" content="A social commerce + financial formalization platform for 63M informal women entrepreneurs in India.">
+<meta property="og:image" content="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/janani-icon.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A12; --card: #15151f; --card-soft: #101018; --border: #29293a;
+    --gold: #F2B705; --coral: #FF5C7A; --teal: #2DD4BF;
+    --text: #F5F0E8; --muted: #b8b3ac; --dim: #706a63;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; line-height: 1.6; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .nav-name { font-family: 'Fraunces'; font-weight: 800; font-size: 18px; text-decoration: none; color: var(--text); }
+  .nav-links a { color: var(--dim); text-decoration: none; font-size: 14.5px; font-weight: 700; margin-left: 20px; }
+  .nav-links a:hover { color: var(--teal); }
+
+  .section { padding: 48px 0; position: relative; overflow: hidden; }
+  .glow { position: absolute; width: 340px; height: 340px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242,183,5,0.14), rgba(255,92,122,0.09) 55%, transparent 75%);
+    filter: blur(10px); z-index: 0; pointer-events: none; }
+  .section > * { position: relative; z-index: 1; }
+
+  h1, h2, h3 { font-family: 'Fraunces', serif; }
+  .eyebrow { font-size: 13.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--coral); }
+  h1 { font-size: 38px; font-weight: 900; line-height: 1.2; margin-top: 10px; }
+  h2 { font-size: 25px; font-weight: 800; margin-bottom: 18px; }
+  h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+
+  .hero-icon { width: 90px; height: 90px; margin-bottom: 18px; }
+  .hero-icon img { width: 100%; filter: drop-shadow(0 0 24px rgba(242,183,5,0.3)); }
+  .hook { font-size: 16.5px; color: var(--muted); margin-top: 14px; max-width: 640px; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; text-align: center; }
+  .stat-num { font-size: 24px; font-weight: 900; color: var(--gold); font-family: 'Fraunces'; }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .big-stat-card { background: var(--card); border-left: 3px solid var(--coral); border-radius: 16px; padding: 26px 28px; }
+  .big-stat-card .num { font-size: 32px; font-weight: 900; color: var(--coral); font-family: 'Fraunces'; }
+  .big-stat-card p { color: var(--muted); font-size: 15px; margin-top: 8px; }
+
+  .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .persona-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+  .persona-emoji { font-size: 28px; margin-bottom: 10px; }
+  .persona-name { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .persona-line { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+  .persona-line b { color: var(--teal); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+
+  .tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .tile { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+  .tile-emoji { font-size: 30px; margin-bottom: 10px; }
+  .tile-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .tile-body { font-size: 13px; color: var(--muted); }
+
+  .tradeoff-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 26px; }
+  .tradeoff-title { font-size: 16px; font-weight: 800; margin-bottom: 14px; }
+  .tradeoff-row { display: flex; gap: 12px; margin-bottom: 10px; font-size: 14px; color: var(--muted); }
+  .tradeoff-row b { color: var(--gold); flex-shrink: 0; min-width: 90px; }
+  .proof-metric { display: inline-block; margin-top: 12px; background: rgba(45,212,191,0.12); color: var(--teal); font-weight: 800; font-size: 13px; padding: 6px 14px; border-radius: 999px; }
+
+  .nsm-card { background: linear-gradient(160deg, #F2B70518, var(--card) 70%); border-left: 3px solid var(--gold); border-radius: 16px; padding: 26px 28px; }
+  .nsm-name { font-size: 20px; font-weight: 900; font-family: 'Fraunces'; color: var(--gold); margin-bottom: 12px; }
+  .nsm-card p { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+
+  .leak-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 26px; }
+  .leak-stat { font-size: 30px; font-weight: 900; color: var(--coral); font-family: 'Fraunces'; }
+  .leak-card p { color: var(--muted); font-size: 14.5px; margin-top: 10px; }
+  .fix-row { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13.5px; color: var(--muted); }
+  .fix-row b { color: var(--teal); }
+
+  .flywheel { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
+  .flywheel span.step { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 8px 14px; }
+  .flywheel span.arrow { color: var(--gold); font-weight: 800; }
+
+  .roadmap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .roadmap-tile { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+  .roadmap-tile .phase-name { font-size: 13.5px; font-weight: 800; margin-bottom: 6px; }
+  .roadmap-tile .phase-bet { font-size: 11.5px; color: var(--muted); }
+
+  .reflect-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; margin-bottom: 12px; font-size: 14px; color: var(--muted); }
+  .reflect-card:last-child { margin-bottom: 0; }
+
+  .quote-block { padding: 26px 28px; border-radius: 18px; background: linear-gradient(160deg, #F2B70518, var(--card) 70%); border-left: 3px solid var(--gold); }
+  .quote-block p { font-size: 17px; font-weight: 700; line-height: 1.4; font-family: 'Fraunces'; }
+
+  .back-link { display: inline-block; margin-top: 30px; padding: 16px 20px; background: var(--card-soft); border: 1px solid var(--border); border-radius: 14px; font-size: 13.5px; color: var(--muted); text-decoration: none; }
+  .back-link b { color: var(--teal); display: block; margin-bottom: 4px; font-size: 14.5px; }
+  .back-link:hover { border-color: var(--teal); }
+
+  .timeline-wrap { position: relative; padding: 10px 0; }
+  .timeline-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+  .stage-row { display: grid; grid-template-columns: 1fr 110px 1fr; align-items: start; margin-bottom: 32px; position: relative; }
+  .stage-row:last-child { margin-bottom: 0; }
+  .stage-marker { grid-column: 2; display: flex; justify-content: center; align-items: flex-start; padding-top: 6px; }
+  .stage-marker-inner { width: 84px; height: 84px; border-radius: 50%; background: var(--card); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; z-index: 2; font-size: 34px; }
+  .stage-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; }
+  .stage-row.left .stage-card { grid-column: 1; }
+  .stage-row.right .stage-card { grid-column: 3; }
+  .stage-num { font-family: 'Fraunces'; font-size: 11.5px; font-weight: 700; color: var(--dim); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .stage-name { font-size: 16.5px; font-weight: 800; margin-bottom: 8px; }
+  .stage-metric { display: inline-block; font-size: 11px; font-weight: 800; color: var(--teal); background: rgba(45,212,191,0.12); padding: 3px 10px; border-radius: 999px; }
+
+  @media (max-width: 700px) {
+    .stage-row { grid-template-columns: 90px 1fr; }
+    .stage-marker { grid-column: 1; }
+    .stage-row.left .stage-card, .stage-row.right .stage-card { grid-column: 2; }
+  }
+
+  .compete-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .compete-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; font-size: 13px; color: var(--muted); }
+  .compete-card b { color: var(--text); display: block; margin-bottom: 4px; font-size: 14px; }
+  .compete-card.winner { border-color: var(--gold); background: linear-gradient(160deg, #F2B70518, var(--card) 70%); }
+  .compete-card.winner b { color: var(--gold); }
+
+  .metrics-tier { margin-bottom: 16px; }
+  .metrics-tier:last-child { margin-bottom: 0; }
+  .metrics-tier-name { font-size: 12.5px; font-weight: 800; color: var(--coral); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .metrics-tier-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; font-size: 13.5px; color: var(--muted); }
+  .metrics-tier-card i { color: var(--text); font-style: normal; }
+
+  .insight-strip { display: flex; flex-direction: column; gap: 10px; }
+  .insight-item { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; font-size: 13.5px; color: var(--muted); display: flex; gap: 12px; align-items: flex-start; }
+  .insight-item .arrow-out { color: var(--gold); font-weight: 800; flex-shrink: 0; }
+
+  footer { text-align: center; padding: 40px 0; color: var(--dim); font-size: 13px; }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 28px; }
+    .stat-row, .persona-grid, .tile-grid, .roadmap-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 460px) {
+    .stat-row, .persona-grid, .roadmap-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav">
+    <a class="nav-name" href="https://thasli-dot.github.io/thasleema-portfolio-assets/">Thasleema A S</a>
+    <div class="nav-links">
+      <a href="https://thasli-dot.github.io/thasleema-portfolio-assets/">Portfolio</a>
+    </div>
+  </div>
+
+  <div class="section" id="hero">
+    <div class="glow" style="top:-100px; right:-100px;"></div>
+    <div class="hero-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/janani-icon.png" alt="Janani Engine"></div>
+    <div class="eyebrow">PM Case Study</div>
+    <h1>Janani Engine</h1>
+    <p class="hook">A social commerce + financial formalization platform for 63 million informal women entrepreneurs in India. Core insight: trust infrastructure has to come before commerce features.</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">63M</div><div class="stat-label">Target users</div></div>
+      <div class="stat-card"><div class="stat-num">TMSVT</div><div class="stat-label">North Star Metric</div></div>
+      <div class="stat-card"><div class="stat-num">+12%</div><div class="stat-label">Activation lift</div></div>
+    </div>
+  </div>
+
+
+  <div class="section" id="problem">
+    <div class="glow" style="top:20%; left:-120px;"></div>
+    <h2>The Problem</h2>
+    <div class="big-stat-card">
+      <div class="num">15-20%</div>
+      <p>Women-led micro-businesses in India lose this much revenue to operational chaos, fail to scale beyond 75 customers, and stay credit-invisible &mdash; not from lack of talent, but lack of infrastructure. No verifiable digital identity, no admin tools, no financial records.</p>
+    </div>
+  </div>
+
+
+  <div class="section" id="competitive">
+    <div class="glow" style="top:10%; right:-100px;"></div>
+    <h2>No One Solves Trust + Formalization Together</h2>
+    <div class="compete-grid">
+      <div class="compete-card"><b>WhatsApp Business</b>High reach, zero trust infrastructure, zero financial formalization</div>
+      <div class="compete-card"><b>Meesho</b>Some seller identity, but no financial formalization</div>
+      <div class="compete-card"><b>Grameen / SHG apps</b>Financial formalization, but no marketplace or visibility</div>
+      <div class="compete-card winner"><b>Janani Engine</b>Verified identity + marketplace + ledger + credit trail, together &mdash; the gap no one else fills</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="personas">
+    <div class="glow" style="bottom:-80px; right:-100px;"></div>
+    <h2>Three Users, One Shared Constraint</h2>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-emoji">🍱</div>
+        <div class="persona-name">Lakshmi</div>
+        <div class="persona-line"><b>Job to be done</b>Grow beyond word-of-mouth without spending on marketing</div>
+        <div class="persona-line"><b>Pain</b>1 in 5 payments missed; no way to prove quality to strangers</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-emoji">🧵</div>
+        <div class="persona-name">Meera</div>
+        <div class="persona-line"><b>Job to be done</b>Sell directly to urban buyers without a 30% middleman cut</div>
+        <div class="persona-line"><b>Pain</b>Digitally illiterate; buyers distrust unbranded sellers</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-emoji">💰</div>
+        <div class="persona-name">Fatima</div>
+        <div class="persona-line"><b>Job to be done</b>Run a 20-member savings circle without disputes</div>
+        <div class="persona-line"><b>Pain</b>Cash-based records; one default collapses the whole circle</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" id="vision">
+    <div class="glow" style="top:-100px; left:30%;"></div>
+    <h2>Four Gears. One Engine. Runs on Trust.</h2>
+    <div class="tile-grid">
+      <div class="tile"><div class="tile-emoji">🛡️</div><div class="tile-title">Verification Gear</div><div class="tile-body">Solves "strangers won't buy from me" &mdash; Aadhaar + social vouching badge</div></div>
+      <div class="tile"><div class="tile-emoji">⚙️</div><div class="tile-title">Operations Gear</div><div class="tile-body">Solves "admin eats 30% of my time" &mdash; scheduling, payments, auto-ledger</div></div>
+      <div class="tile"><div class="tile-emoji">📣</div><div class="tile-title">Marketing Gear</div><div class="tile-body">Solves "I'm invisible outside my street" &mdash; social feed, visibility score</div></div>
+      <div class="tile"><div class="tile-emoji">🤝</div><div class="tile-title">Convergence Gear</div><div class="tile-body">Solves "I can't fulfill big orders alone" &mdash; guild contracts, Leader Janani system</div></div>
+    </div>
+  </div>
+
+
+  <div class="section" id="tradeoff">
+    <div class="glow" style="bottom:-80px; right:20%;"></div>
+    <h2>The Hardest Tradeoff</h2>
+    <div class="tradeoff-card">
+      <div class="tradeoff-title">CSC-assisted verification vs. fully digital onboarding</div>
+      <div class="tradeoff-row"><b>Option A</b>Fully digital &mdash; faster to build, scales cheaper</div>
+      <div class="tradeoff-row"><b>Option B</b>CSC phygital touchpoint &mdash; slower, real partnership overhead</div>
+      <div class="tradeoff-row"><b>Chose B because</b>40% of target users are digitally illiterate. Digital-only verification excludes the users who need the platform most.</div>
+      <div class="proof-metric">Proof it was right: +12% activation rate</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="nsm">
+    <div class="glow" style="top:10%; left:-100px;"></div>
+    <h2>North Star Metric</h2>
+    <div class="nsm-card">
+      <div class="nsm-name">Total Monthly Successful Value Transactions (TMSVT)</div>
+      <p><b style="color:var(--text)">Why not DAU?</b> A Janani can open the app daily and never transact &mdash; that's optimizing for engagement theater.</p>
+      <p><b style="color:var(--text)">Why not GMV?</b> GMV misses the chit fund savings deposits that are the real lifeblood of nano entrepreneurs.</p>
+      <p><b style="color:var(--text)">Why TMSVT?</b> It captures commerce AND savings. If it's growing, Jananis are genuinely selling and saving more.</p>
+    </div>
+  </div>
+
+
+  <div class="section" id="metrics-framework">
+    <div class="glow" style="bottom:-80px; right:20%;"></div>
+    <h2>9 Metrics, 3 Tiers, Each With a Hypothesis</h2>
+    <div class="metrics-tier">
+      <div class="metrics-tier-name">Tier 1 &middot; Trust &amp; Activation</div>
+      <div class="metrics-tier-card"><i>Verification Velocity</i> &mdash; if badge time drops below 2 days, browse-to-buy conversion increases</div>
+    </div>
+    <div class="metrics-tier">
+      <div class="metrics-tier-name">Tier 2 &middot; Engagement &amp; Stickiness</div>
+      <div class="metrics-tier-card"><i>Guild Stickiness</i> &mdash; if 60%+ of guild members check in daily, cross-guild contracts increase</div>
+    </div>
+    <div class="metrics-tier">
+      <div class="metrics-tier-name">Tier 3 &middot; Economic Impact</div>
+      <div class="metrics-tier-card"><i>Janani Credit Score Growth</i> &mdash; if average score grows 20% over 3 months, micro-loan eligibility unlocks</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="leak">
+    <div class="glow" style="bottom:-60px; left:20%;"></div>
+    <h2>The Verification Leak</h2>
+    <div class="leak-card">
+      <div class="leak-stat">40% drop-off</div>
+      <p>At the verification stage &mdash; the single largest leak in the entire funnel, caused by fear of data theft and photo-upload difficulty. Everything else in the product is downstream of fixing this.</p>
+      <div class="fix-row"><b>The fix:</b> ID masking (number only, no document scan) + CSC-assisted offline touchpoint &mdash; result: +12% activation.</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="lakshmi">
+    <div class="glow" style="top:-100px; right:-100px;"></div>
+    <div class="eyebrow">From Drop-off to Dubai</div>
+    <h2>One Janani's Journey Through the Engine</h2>
+    <p style="color:var(--muted); font-size:14.5px; margin-bottom:24px; max-width:600px;">Lakshmi's path is the product working exactly as designed &mdash; trust unlocks transactions, transactions unlock credit, credit unlocks scale.</p>
+    <div class="timeline-wrap">
+      <svg class="timeline-svg" viewBox="0 0 200 1000" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="lakshmiGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F2B705"/>
+            <stop offset="50%" stop-color="#FF5C7A"/>
+            <stop offset="100%" stop-color="#2DD4BF"/>
+          </linearGradient>
+        </defs>
+        <path d="M100,0 C100,40 82,50 82,90 C82,130 118,210 118,250 C118,290 82,370 82,410 C82,450 118,530 118,570 C118,610 82,690 82,730 C82,770 118,850 118,890 C118,930 100,960 100,1000"
+              stroke="url(#lakshmiGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner">😟</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Milestone 1</div>
+          <div class="stage-name">Drop-off</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Fear at the verification stage &mdash; the exact leak fixed above.</div>
+          <span class="stage-metric">Drop-off Point Detection</span>
+        </div>
+      </div>
+      <div class="stage-row right">
+        <div class="stage-marker"><div class="stage-marker-inner">🪪</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Milestone 2</div>
+          <div class="stage-name">CSC Onboarding</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Verified Janani badge earned through the phygital assist touchpoint.</div>
+          <span class="stage-metric">Verification Velocity &uarr;</span>
+        </div>
+      </div>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner">📦</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Milestone 3</div>
+          <div class="stage-name">First Transaction</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">50 orders completed, 4.2-star rating.</div>
+          <span class="stage-metric">Activation Rate &uarr;, TMSVT &uarr;</span>
+        </div>
+      </div>
+      <div class="stage-row right">
+        <div class="stage-marker"><div class="stage-marker-inner">🏦</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Milestone 4</div>
+          <div class="stage-name">Ledger + Licence</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Transaction history converts into a formal bank loan.</div>
+          <span class="stage-metric">Formalization Rate &uarr;, Credit Score &uarr;</span>
+        </div>
+      </div>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner">👑</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Milestone 5</div>
+          <div class="stage-name">Leader Janani</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Mentors a cluster of 10 sub-Jananis, extending trust through vouching.</div>
+          <span class="stage-metric">Mentorship Multiplier &uarr;</span>
+        </div>
+      </div>
+      <div class="stage-row right">
+        <div class="stage-marker"><div class="stage-marker-inner">✈️</div></div>
+        <div class="stage-card">
+          <div class="stage-num">Milestone 6</div>
+          <div class="stage-name">Dubai Branch</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-bottom:10px;">Export-ready, generating revenue from a global buyer base.</div>
+          <span class="stage-metric">Export Potential Index &uarr;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" id="flywheel">
+    <div class="glow" style="top:15%; right:-100px;"></div>
+    <h2>Growth Flywheel</h2>
+    <div class="flywheel">
+      <span class="step">Verified badge earned</span><span class="arrow">&rarr;</span>
+      <span class="step">First transaction</span><span class="arrow">&rarr;</span>
+      <span class="step">Positive review</span><span class="arrow">&rarr;</span>
+      <span class="step">Higher visibility</span><span class="arrow">&rarr;</span>
+      <span class="step">More buyers</span><span class="arrow">&rarr;</span>
+      <span class="step">Becomes Leader Janani</span><span class="arrow">&rarr;</span>
+      <span class="step">Mentors 3 more</span>
+    </div>
+    <p style="margin-top:16px; font-size:13.5px; color:var(--muted);">Community-vouched CAC: &#8377;60&ndash;80, vs. &#8377;300&ndash;500 for paid ads &mdash; and 2.3x higher retention.</p>
+  </div>
+
+
+  <div class="section" id="funnel-analytics">
+    <div class="glow" style="bottom:-80px; left:-100px;"></div>
+    <h2>What the Regional Data Surfaced</h2>
+    <div class="insight-strip">
+      <div class="insight-item"><span class="arrow-out">&rarr;</span>Rural Gujarat poultry farmers sell 34% below market with no licence &mdash; fast-tracking CSC approval for food-processing Jananis</div>
+      <div class="insight-item"><span class="arrow-out">&rarr;</span>Assam silk weavers guild signed 11 contracts with Delhi boutiques &mdash; export readiness training for Power Jananis with craft products</div>
+      <div class="insight-item"><span class="arrow-out">&rarr;</span>345 South Indian users on the vernacular version boosted sales 12% &mdash; expanding Voice AI to 8 more tribal dialects</div>
+    </div>
+  </div>
+
+
+  <div class="section" id="roadmap">
+    <div class="glow" style="bottom:-80px; right:-80px;"></div>
+    <h2>Roadmap</h2>
+    <div class="roadmap-grid">
+      <div class="roadmap-tile"><div class="phase-name">Logistics</div><div class="phase-bet">Delivery friction is the #1 reason tribal Jananis lose orders</div></div>
+      <div class="roadmap-tile"><div class="phase-name">Help Units</div><div class="phase-bet">Digitally illiterate users need human handholding</div></div>
+      <div class="roadmap-tile"><div class="phase-name">Exports</div><div class="phase-bet">Power Jananis are export-ready but lack a government pathway</div></div>
+      <div class="roadmap-tile"><div class="phase-name">Creative Spaces</div><div class="phase-bet">Peer learning accelerates skill upgrades</div></div>
+    </div>
+  </div>
+
+
+  <div class="section" id="closing">
+    <div class="glow" style="top:-60px; left:20%;"></div>
+    <h2>What I'd Do Differently</h2>
+    <div class="reflect-card"><b style="color:var(--gold)">Validate before building.</b> I assumed women would want digital chit fund records. The assumption held &mdash; but I'd test it with a 2-week paper prototype first.</div>
+    <div class="reflect-card"><b style="color:var(--gold)">Tighter metrics from day one.</b> I designed 20+ KPIs, which shows deep understanding but not yet hard prioritization. A PM's job is "we track 5 things, not 25."</div>
+    <div class="reflect-card"><b style="color:var(--gold)">Talk to buyers, not just sellers.</b> The whole product is Janani-centric, but transactions need two parties &mdash; demand-side insight might have changed verification design.</div>
+
+    <div class="quote-block" style="margin-top:22px;">
+      <p>&quot;The next 100 million entrepreneurs in India don't need another marketplace. They need trust infrastructure. Build the trust layer first, and the commerce follows.&quot;</p>
+    </div>
+
+    <a class="back-link" href="https://app.notion.com/p/3728095c9a018037849cdc56d7c8baba" target="_blank">
+      <b>Full case study on Notion &rarr;</b>
+      Reference for in-depth work: complete user research, competitive landscape, 9-metric framework, funnel analytics, and full roadmap risk assessment.
+    </a>
+  </div>
+
+  <footer>&copy; Thasleema A S</footer>
+</div>
+</body>
+</html>
