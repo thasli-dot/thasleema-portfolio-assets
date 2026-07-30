@@ -70,13 +70,36 @@
   .tile-title { font-size: 14.5px; font-weight: 800; margin-bottom: 8px; }
   .tile-body { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 
-  .journey-step { display: flex; gap: 22px; align-items: flex-start; margin-bottom: 30px; }
-  .journey-step:last-child { margin-bottom: 0; }
-  .journey-icon { flex-shrink: 0; width: 58px; height: 58px; }
-  .journey-icon img { width: 100%; filter: drop-shadow(0 0 14px rgba(242,183,5,0.25)); }
-  .journey-num { font-family: 'Fraunces'; font-size: 13px; font-weight: 700; color: var(--coral); margin-bottom: 5px; }
-  .journey-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
-  .journey-body { font-size: 14.5px; color: var(--muted); }
+  .timeline-wrap { position: relative; padding: 10px 0; }
+  .timeline-wrap::before {
+    content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(180deg, var(--gold), var(--coral), var(--teal));
+    transform: translateX(-50%); border-radius: 3px;
+  }
+  .stage-row { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: start; margin-bottom: 34px; position: relative; }
+  .stage-row:last-child { margin-bottom: 0; }
+  .stage-marker { grid-column: 2; display: flex; justify-content: center; align-items: flex-start; padding-top: 6px; }
+  .stage-marker-inner { width: 52px; height: 52px; border-radius: 50%; background: var(--card); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; z-index: 2; }
+  .stage-marker-inner img { width: 30px; height: 30px; object-fit: contain; }
+  .stage-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; }
+  .stage-row.left .stage-card { grid-column: 1; }
+  .stage-row.right .stage-card { grid-column: 3; }
+  .stage-num { font-family: 'Fraunces'; font-size: 12px; font-weight: 700; color: var(--dim); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .stage-name { font-size: 19px; font-weight: 800; margin-bottom: 12px; }
+  .stage-line { font-size: 13.5px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
+  .stage-line:last-child { margin-bottom: 0; }
+  .stage-tag { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; margin-right: 8px; }
+  .stage-tag.insight { background: rgba(242,183,5,0.15); color: var(--gold); }
+  .stage-tag.action { background: rgba(255,92,122,0.15); color: var(--coral); }
+  .stage-tag.impact { background: rgba(45,212,191,0.15); color: var(--teal); }
+
+  @media (max-width: 700px) {
+    .stage-row { grid-template-columns: 48px 1fr; }
+    .stage-marker { grid-column: 1; }
+    .stage-row.left .stage-card, .stage-row.right .stage-card { grid-column: 2; }
+    .timeline-wrap::before { left: 24px; }
+  }
+
 
   .strat-intro { font-size: 15.5px; color: var(--muted); font-style: italic; border-left: 3px solid var(--gold); padding-left: 18px; margin-bottom: 26px; font-family: 'Fraunces'; }
   .strat-card { background: var(--card); border-radius: 16px; padding: 22px 24px; border: 1px solid var(--border); margin-bottom: 16px; display: flex; gap: 20px; align-items: flex-start; }
@@ -158,51 +181,60 @@
 
   <div class="section" id="journey">
     <div class="glow" style="bottom:-100px; right:-100px;"></div>
-    <h2>The Instinct Behind the Title</h2>
-    
-    <div class="journey-step">
-      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-1-discovery.png" alt="Ran discovery before I knew the term"></div>
-      <div>
-        <div class="journey-num">STAGE 1</div>
-        <div class="journey-title">Ran discovery before I knew the term</div>
-        <div class="journey-body">As an educator, every session was a live experiment: which schedule kept students showing up, which teaching moment moved retention, which nudge pushed someone deeper into the course instead of dropping off. I was reading behavior and shipping fixes &mdash; I just did not call it a funnel yet.</div>
+    <h2>How I Became a Product Manager</h2>
+    <div class="timeline-wrap">
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-1-discovery.png" alt="Educator"></div></div>
+        <div class="stage-card">
+          <div class="stage-num">Stage 1</div>
+          <div class="stage-name">Educator</div>
+          <div class="stage-line"><span class="stage-tag insight">Insight</span>Every classroom was product research &mdash; what scheduling kept students engaged, what actually improved retention, what nudged someone deeper into the funnel instead of dropping off.</div>
+          <div class="stage-line"><span class="stage-tag action">Action</span>Built and ran the teaching product around those signals, long before I had the vocabulary for any of it.</div>
+          <div class="stage-line"><span class="stage-tag impact">Impact</span>Found my product instinct &mdash; inside a classroom, not a framework.</div>
+        </div>
       </div>
-    </div>
-    <div class="journey-step">
-      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-2-iterate.png" alt="Treated feedback like a sprint cadence"></div>
-      <div>
-        <div class="journey-num">STAGE 2</div>
-        <div class="journey-title">Treated feedback like a sprint cadence</div>
-        <div class="journey-body">Materials, pacing, delivery &mdash; all rebuilt on every cycle of real feedback, not once a year. Retention and revenue moved because the loop never stopped. Same discipline as agile iteration, minus the ceremony and the title.</div>
+      <div class="stage-row right">
+        <div class="stage-marker"><div class="stage-marker-inner"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-2-iterate.png" alt="Iterator"></div></div>
+        <div class="stage-card">
+          <div class="stage-num">Stage 2</div>
+          <div class="stage-name">Iterator</div>
+          <div class="stage-line"><span class="stage-tag insight">Insight</span>Static lesson plans do not survive real feedback.</div>
+          <div class="stage-line"><span class="stage-tag action">Action</span>Iterated materials and methodology every cycle &mdash; run like a sprint, not a once-a-year overhaul.</div>
+          <div class="stage-line"><span class="stage-tag impact">Impact</span>Measurable revenue growth, driven directly by the iteration loop.</div>
+        </div>
       </div>
-    </div>
-    <div class="journey-step">
-      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-3-venture.png" alt="Built a zero-CAC business on positioning, not budget"></div>
-      <div>
-        <div class="journey-num">STAGE 3</div>
-        <div class="journey-title">Built a zero-CAC business on positioning, not budget</div>
-        <div class="journey-body">Took that instinct and built a venture: freemium model, zero paid acquisition, 90% retention, 100% referral-driven growth. Competitive analysis found a low-cost, high-volume position competitors were not occupying &mdash; engineered around real &quot;wow&quot; moments, not discounts.</div>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-3-venture.png" alt="Founder"></div></div>
+        <div class="stage-card">
+          <div class="stage-num">Stage 3</div>
+          <div class="stage-name">Founder</div>
+          <div class="stage-line"><span class="stage-tag insight">Insight</span>Paid acquisition was not the only lever available &mdash; positioning was.</div>
+          <div class="stage-line"><span class="stage-tag action">Action</span>Found zero-paid-marketing channels, ran a freemium model, ran real competitive analysis, engineered &quot;wow&quot; moments, and built low-cost, high-volume transactions.</div>
+          <div class="stage-line"><span class="stage-tag impact">Impact</span>A uniquely positioned venture that grew without a marketing budget.</div>
+        </div>
       </div>
-    </div>
-    <div class="journey-step">
-      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-4-ai.png" alt="Used GenAI as a growth lever, before it was a job requirement"></div>
-      <div>
-        <div class="journey-num">STAGE 4</div>
-        <div class="journey-title">Used GenAI as a growth lever, before it was a job requirement</div>
-        <div class="journey-body">Learned prompting early to generate visual concept notes, crisp explainer videos, and quick-reference cheat sheets &mdash; content that measurably drove deeper adoption. Not a resume line. A distribution channel.</div>
+      <div class="stage-row right">
+        <div class="stage-marker"><div class="stage-marker-inner"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-4-ai.png" alt="Early GenAI Adopter"></div></div>
+        <div class="stage-card">
+          <div class="stage-num">Stage 4</div>
+          <div class="stage-name">Early GenAI Adopter</div>
+          <div class="stage-line"><span class="stage-tag insight">Insight</span>Manual content creation could not scale with demand.</div>
+          <div class="stage-line"><span class="stage-tag action">Action</span>Learned prompting to generate image-based concept notes, explainer videos, and ChatGPT cheat sheets.</div>
+          <div class="stage-line"><span class="stage-tag impact">Impact</span>Directly drove adoption &mdash; GenAI as a growth channel, not a resume buzzword.</div>
+        </div>
       </div>
-    </div>
-    <div class="journey-step">
-      <div class="journey-icon"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-5-formal.png" alt="Formalized the instinct &mdash; did not discover it"></div>
-      <div>
-        <div class="journey-num">STAGE 5</div>
-        <div class="journey-title">Formalized the instinct &mdash; did not discover it</div>
-        <div class="journey-body">An AI PM course did not teach me product thinking. It gave structure, vocabulary, and technical depth to five years of decisions I was already making &mdash; discovery, iteration, GTM, retention &mdash; under different job titles.</div>
+      <div class="stage-row left">
+        <div class="stage-marker"><div class="stage-marker-inner"><img src="https://raw.githubusercontent.com/thasli-dot/thasleema-portfolio-assets/main/journey-5-formal.png" alt="Formalized"></div></div>
+        <div class="stage-card">
+          <div class="stage-num">Stage 5</div>
+          <div class="stage-name">Formalized</div>
+          <div class="stage-line"><span class="stage-tag insight">Insight</span>I was already doing PM work &mdash; I just did not have the name or the technical depth for it.</div>
+          <div class="stage-line"><span class="stage-tag action">Action</span>Completed an AI PM course.</div>
+          <div class="stage-line"><span class="stage-tag impact">Impact</span>Real vocabulary, frameworks, and technical grounding for instincts I had been running on for years.</div>
+        </div>
       </div>
     </div>
   </div>
-
-
   <div class="section" id="skills">
     <div class="glow" style="top:-100px; left:30%;"></div>
     <h2>Core Skills</h2>
