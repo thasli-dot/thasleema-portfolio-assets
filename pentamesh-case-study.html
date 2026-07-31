@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pentamesh — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14110d;
+    --bg-raised: #1c1812;
+    --gold: #d1a13c;
+    --gold-dim: #8a7238;
+    --coral: #e8663f;
+    --teal: #2f7a6f;
+    --teal-bright: #4fb3a3;
+    --text: #f1ece0;
+    --text-dim: #a89e8c;
+    --line: rgba(241,236,224,0.10);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+  h1,h2,h3{font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--coral);
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* HERO */
+  .hero{padding:100px 0 70px; border-bottom:1px solid var(--line);}
+  .hero h1{font-size:64px; line-height:1.02; margin:18px 0 20px; color:var(--gold);}
+  .hero .sub{font-size:19px; color:var(--text-dim); max-width:620px; margin-bottom:36px;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:28px; font-size:13px; color:var(--text-dim); margin-bottom:36px;}
+  .meta-row b{color:var(--text); font-weight:500;}
+  .links{display:flex; flex-wrap:wrap; gap:12px;}
+  .links a{
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    color:var(--teal-bright); text-decoration:none;
+    border:1px solid var(--teal); padding:8px 14px; border-radius:2px;
+    transition:all .15s ease;
+  }
+  .links a:hover{background:var(--teal); color:var(--bg);}
+
+  section{padding:80px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:40px;}
+  .section-head h2{font-size:34px; color:var(--text); margin-top:10px;}
+  .section-head p.lede{color:var(--text-dim); font-size:16px; max-width:640px; margin-top:14px;}
+
+  /* THE FORK — bent path */
+  .fork-diagram{margin:44px 0; overflow-x:auto;}
+  .fork-diagram svg{width:100%; height:auto; min-width:600px;}
+  .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:36px;}
+  .why-card{background:var(--bg-raised); border:1px solid var(--line); padding:20px 22px; border-radius:3px;}
+  .why-card .num{font-family:'IBM Plex Mono', monospace; color:var(--coral); font-size:12px;}
+  .why-card p{color:var(--text-dim); font-size:14px; margin-top:8px;}
+
+  /* FLOW */
+  .flow-steps{counter-reset:step; margin-top:36px;}
+  .flow-step{display:flex; gap:22px; padding:22px 0; border-top:1px solid var(--line);}
+  .flow-step:first-child{border-top:none;}
+  .flow-step .n{
+    font-family:'Fraunces', serif; font-size:28px; color:var(--gold-dim);
+    min-width:44px;
+  }
+  .flow-step .body h4{font-family:'Inter'; font-weight:600; font-size:16px; margin-bottom:4px;}
+  .flow-step .body p{color:var(--text-dim); font-size:14.5px;}
+  .tag{
+    display:inline-block; font-family:'IBM Plex Mono'; font-size:10.5px;
+    color:var(--teal-bright); border:1px solid var(--teal); border-radius:2px;
+    padding:2px 6px; margin-top:8px; letter-spacing:.04em;
+  }
+
+  /* METRICS */
+  .northstar{
+    background:var(--bg-raised); border:1px solid var(--line); border-left:3px solid var(--coral);
+    padding:28px 30px; border-radius:3px; margin-bottom:32px;
+  }
+  .northstar .eyebrow{margin-bottom:10px;}
+  .northstar .big{font-family:'Fraunces', serif; font-size:26px; color:var(--gold); margin-bottom:8px;}
+  .northstar p{color:var(--text-dim); font-size:15px;}
+  .targets{display:flex; gap:40px; margin-top:18px;}
+  .targets div .v{font-family:'IBM Plex Mono'; color:var(--teal-bright); font-size:22px;}
+  .targets div .l{font-size:11.5px; color:var(--text-dim); margin-top:2px;}
+
+  table{width:100%; border-collapse:collapse; margin-top:8px;}
+  th{font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+     color:var(--text-dim); text-align:left; padding:10px 12px; border-bottom:1px solid var(--line);}
+  td{font-size:14px; padding:12px 12px; border-bottom:1px solid var(--line); color:var(--text); vertical-align:top;}
+  td.target{color:var(--gold); font-family:'IBM Plex Mono'; font-size:13px; white-space:nowrap;}
+  .gate-note{
+    margin-top:22px; padding:16px 20px; background:rgba(232,102,63,0.08);
+    border:1px solid rgba(232,102,63,0.3); border-radius:3px; font-size:13.5px; color:var(--text-dim);
+  }
+  .gate-note b{color:var(--coral);}
+
+  /* SYSTEM MAP */
+  .system-map{margin:40px 0 8px;}
+  .system-map svg{width:100%; height:auto; max-width:700px; display:block; margin:0 auto;}
+  .map-caption{color:var(--text-dim); font-size:13.5px; text-align:center; max-width:560px; margin:8px auto 0;}
+
+  .matrix-grid{margin:36px 0 8px;}
+  .matrix-grid h4{font-family:'Inter'; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-dim); margin-bottom:18px; text-align:center;}
+  .conn-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .conn-card{background:var(--bg-raised); border:1px solid var(--line); border-radius:6px; padding:20px;}
+  .conn-badges{display:flex; align-items:center; gap:8px; margin-bottom:12px;}
+  .conn-badges img{width:32px; height:32px; border-radius:6px; object-fit:cover;}
+  .conn-title{font-family:'Fraunces'; font-weight:600; font-size:15px; color:var(--gold); margin-bottom:6px;}
+  .conn-card p{font-size:13px; color:var(--text-dim); line-height:1.5;}
+  @media (max-width:760px){ .conn-grid{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:520px){ .conn-grid{grid-template-columns:1fr;} }
+
+  /* IMAGES */
+  .hub-shot{margin:56px 0 0; text-align:center;}
+  .hub-shot img{max-width:280px; width:100%; border-radius:8px; border:1px solid var(--line);}
+  .hub-shot p{color:var(--text-dim); font-size:13px; margin-top:14px;}
+  .filament h3{display:flex; align-items:center; gap:12px;}
+  .badge-icon{width:34px; height:34px; border-radius:6px; object-fit:cover;}
+  .fil-shots{margin-top:18px; display:flex; gap:12px; overflow-x:auto; padding-bottom:4px;}
+  .fil-shots img{height:230px; width:auto; border-radius:6px; border:1px solid var(--line); flex-shrink:0;}
+  .fil-shots-wide{margin-top:18px; overflow-x:auto; border-radius:6px; border:1px solid var(--line);}
+  .fil-shots-wide img{height:280px; width:auto; display:block;}
+  .shot-caption{font-size:12px; color:var(--text-dim); margin-top:8px; font-family:'IBM Plex Mono';}
+
+  /* FIVE FILAMENTS — equal weight, Giftify included */
+  .filaments{display:flex; flex-direction:column; gap:22px; margin-top:36px;}
+  .filament{
+    border:1px solid var(--line); border-left:3px solid var(--teal);
+    background:var(--bg-raised); padding:26px 28px; border-radius:3px;
+  }
+  .filament.is-live{border-left-color:var(--coral);}
+  .filament .fil-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:8px;}
+  .filament .phase{font-family:'IBM Plex Mono'; font-size:11px; color:var(--teal-bright); letter-spacing:.04em;}
+  .filament.is-live .phase{color:var(--coral);}
+  .filament .status{
+    font-family:'IBM Plex Mono'; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase;
+    border:1px solid var(--teal); color:var(--teal-bright); padding:2px 8px; border-radius:2px;
+  }
+  .filament.is-live .status{border-color:var(--coral); color:var(--coral);}
+  .filament h3{font-size:22px; margin-bottom:8px;}
+  .filament > p.desc{font-size:14.5px; color:var(--text-dim); max-width:640px; margin-bottom:18px;}
+  .fil-meta{display:grid; grid-template-columns:1fr 1fr; gap:18px; padding-top:16px; border-top:1px solid var(--line);}
+  .fil-meta .block .l{font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); margin-bottom:6px;}
+  .fil-meta .block .metric-line{font-size:13.5px; color:var(--text); margin-bottom:4px;}
+  .fil-meta .block .metric-line b{color:var(--gold); font-family:'IBM Plex Mono'; font-weight:500; font-size:13px;}
+  .fil-meta .block .dep{font-size:13.5px; color:var(--text-dim);}
+  .reuses-line{
+    margin-top:16px; font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--gold);
+    padding-top:14px; border-top:1px dashed var(--line);
+  }
+
+  /* RISKS */
+  .risk-row{display:grid; grid-template-columns:1fr 1.3fr; gap:24px; padding:18px 0; border-top:1px solid var(--line);}
+  .risk-row:first-child{border-top:none;}
+  .risk-row .risk{font-size:14.5px;}
+  .risk-row .mit{font-size:14px; color:var(--text-dim);}
+
+  /* REFLECTION */
+  .reflection blockquote{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:22px;
+    color:var(--gold); line-height:1.5; border-left:2px solid var(--coral); padding-left:24px; margin:24px 0;
+  }
+  .reflection p{color:var(--text-dim); font-size:15px; margin-top:16px;}
+
+  footer{padding:60px 0 90px; text-align:center;}
+  footer p{color:var(--text-dim); font-size:13px; margin-bottom:18px;}
+  footer .links{justify-content:center;}
+
+  @media (max-width:640px){
+    .hero h1{font-size:40px;}
+    .why-grid, .risk-row, .fil-meta{grid-template-columns:1fr;}
+    .targets{flex-wrap:wrap; gap:22px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="eyebrow">Case Study · Strategic Thinking</span>
+    <h1>Pentamesh</h1>
+    <p class="sub">A platform strategy to move WhatsApp's 3-billion-user base from messaging utility into trust-driven social commerce — without diluting the identity that makes it the default communication layer for billions.</p>
+    <div class="meta-row">
+      <span>Role — <b>Associate Product Manager</b></span>
+      <span>Status — <b>Giftify (Phase 1) MVP-ready · Phases 2–5 discovery</b></span>
+      <span>Target ship — <b>Q3 2027</b></span>
+    </div>
+    <div class="links">
+      <a href="https://giftify-ecosystem-pr-76z0.bolt.host" target="_blank">Live Prototype ↗</a>
+      <a href="#" target="_blank">Figma Prototype ↗</a>
+      <a href="#" target="_blank">Jira Backlog ↗</a>
+      <a href="#" target="_blank">Notion Case Study ↗</a>
+    </div>
+  </div>
+
+  <div class="hub-shot">
+    <img src="img/hub-overview.png" alt="Pentamesh hub — five filaments launching from a central crystal">
+    <p>The Pentamesh hub — five filaments, one entry point, Giftify live today.</p>
+  </div>
+
+  <!-- THE FORK -->
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">The Decision</span>
+      <h2>Five filaments. One first move.</h2>
+      <p class="lede">Pentamesh isn't Giftify — it's a five-part platform strategy. The hardest work wasn't designing five features; it was defending which one to build first on more than "it felt right." Every filament was scored on an Impact-vs-Effort matrix before a single PRD was written.</p>
+    </div>
+
+    <div class="fork-diagram">
+      <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
+        <!-- origin -->
+        <circle cx="50" cy="130" r="5" fill="#d1a13c"/>
+        <text x="20" y="160" fill="#a89e8c" font-family="IBM Plex Mono" font-size="11">5 filaments</text>
+
+        <!-- faded strategic-win paths -->
+        <path d="M50,130 C 220,60 400,40 850,20" stroke="#2f7a6f" stroke-width="1.4" fill="none" opacity="0.35"/>
+        <path d="M50,130 C 220,90 400,70 850,70" stroke="#2f7a6f" stroke-width="1.4" fill="none" opacity="0.35"/>
+        <path d="M50,130 C 220,150 400,190 850,215" stroke="#2f7a6f" stroke-width="1.4" fill="none" opacity="0.35"/>
+        <path d="M50,130 C 220,170 400,220 850,240" stroke="#2f7a6f" stroke-width="1.4" fill="none" opacity="0.35"/>
+        <text x="855" y="24" fill="#5f6d68" font-family="IBM Plex Mono" font-size="10">Bridgernet — later</text>
+        <text x="855" y="74" fill="#5f6d68" font-family="IBM Plex Mono" font-size="10">Edge Circles — later</text>
+        <text x="855" y="219" fill="#5f6d68" font-family="IBM Plex Mono" font-size="10">W Hall — later</text>
+        <text x="855" y="244" fill="#5f6d68" font-family="IBM Plex Mono" font-size="10">Microspace — later</text>
+
+        <!-- the bent path: bright, decisive -->
+        <path d="M50,130 C 300,130 350,132 900,132" stroke="#e8663f" stroke-width="3" fill="none"/>
+        <circle cx="900" cy="132" r="6" fill="#e8663f"/>
+        <text x="700" y="118" fill="#e8663f" font-family="IBM Plex Mono" font-size="13" font-weight="500">Giftify — Quick Win / MVP</text>
+      </svg>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card"><span class="num">01</span><p><b style="color:var(--text)">Lowest technical risk.</b> No new verification systems, no content-moderation pipeline, no marketplace-liquidity problem to solve first.</p></div>
+      <div class="why-card"><span class="num">02</span><p><b style="color:var(--text)">Fastest validation loop.</b> Gifting is a behaviour users already understand from Instagram, iMessage, Telegram — the only new variable is whether they'll do it inside WhatsApp.</p></div>
+      <div class="why-card"><span class="num">03</span><p><b style="color:var(--text)">Reusable infrastructure.</b> The appreciation-token mechanism becomes the reward currency all four future filaments plug into.</p></div>
+      <div class="why-card"><span class="num">04</span><p><b style="color:var(--text)">Revenue model proof point.</b> Validates the revenue-share-with-partner model on a simple transaction before it carries higher-stakes flows.</p></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Problem</span>
+      <h2>Gifting breaks the moment it's meant to celebrate</h2>
+      <p class="lede">Celebration happens inside the conversation — a birthday, a thank-you, a congratulations. But gifting today means leaving WhatsApp entirely: opening a shopping app, browsing, paying, then manually pasting a confirmation back into chat. WhatsApp Pay exists, but reads as transactional, not celebratory — no personalisation, no visual flair, no contextual spark. And there's no safe way for WhatsApp to facilitate gifting without exposing receivers to unsolicited gifts, or turning itself into an e-commerce business.</p>
+    </div>
+    <div class="hub-shot">
+      <img src="img/status-quo.png" alt="The Status Quo — competitors circling WhatsApp's payments and commerce features, risk of feature dilution">
+      <p>The wider bet behind Pentamesh: bolt-on features (payments, status ads, basic catalogues) compete where WhatsApp is weakest. A mesh of trust-native filaments competes on ground no one else can copy.</p>
+    </div>
+  </section>
+
+  <!-- SOLUTION FLOW -->
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Solution — Giftify</span>
+      <h2>In-chat gifting, real fulfilment, zero inventory risk</h2>
+      <p class="lede">WhatsApp handles discovery and notification. Every e-commerce partner — Amazon, Flipkart, Myntra — handles the actual order, payment capture, and delivery.</p>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="n">1</div>
+        <div class="body">
+          <h4>Send</h4>
+          <p>Sender browses the in-chat gift catalogue, picks an item, and pays — without ever leaving the conversation.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="n">2</div>
+        <div class="body">
+          <h4>Notify</h4>
+          <p>The receiver sees the gift as a native chat-bubble, not a redirect or external link. Payment completes before notification fires — under 5 seconds, so there's no "phantom gift" moment.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="n">3</div>
+        <div class="body">
+          <h4>Accept or Report</h4>
+          <p>Receiver accepts, or flags the sender as unknown. A report triggers an automatic refund — no manual support step, no window for anonymous-sender harassment.</p>
+          <span class="tag">Anti-stalking by design</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="n">4</div>
+        <div class="body">
+          <h4>Export &amp; Fulfil</h4>
+          <p>On accept, the receiver picks a partner platform for delivery — default address pre-filled, fully overridable. WhatsApp's role ends here; the partner owns logistics from this point on.</p>
+        </div>
+      </div>
+    </div>
+    <div class="hub-shot" style="margin-top:44px;">
+      <div class="fil-shots-wide"><img src="img/flow-giftify-full.jpg" alt="Full Giftify flow — hub, store, checkout, payment success, chat notification, accept/report, export to partner"></div>
+      <p class="shot-caption" style="text-align:center;">All 8 Giftify screens — hub → store → checkout → payment → chat notification → accept/report → export</p>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Metrics</span>
+      <h2>WCFAR — the platform's real signal</h2>
+      <p class="lede">Individual filament metrics only tell you if one feature has users. WCFAR tells you if Pentamesh is an ecosystem — or five unrelated features that happen to share an app.</p>
+    </div>
+
+    <div class="northstar">
+      <span class="eyebrow">North Star</span>
+      <div class="big">Weekly Cross-Filament Active Rate</div>
+      <p>% of Pentamesh users engaging with two or more filaments in a given week. Only becomes measurable from Phase 2 onward, once a second filament is live alongside Giftify — Phase 1's job is to build the appreciation-token and commission infrastructure that measurement depends on.</p>
+      <div class="targets">
+        <div><div class="v">35%</div><div class="l">Year 1 target</div></div>
+        <div><div class="v">55%</div><div class="l">Year 2 target</div></div>
+        <div><div class="v">₹500</div><div class="l">Revenue / user, Y1</div></div>
+        <div><div class="v">≤14 days</div><div class="l">Time to first cross-filament action</div></div>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>Giftify metric</th><th>Definition</th><th>Target</th></tr>
+      <tr><td>Gift Redemption Rate</td><td>Received gifts exported to a partner (Giftify's own north star)</td><td class="target">≥40% → &gt;65%</td></tr>
+      <tr><td>Acceptance vs. Rejection</td><td>Accepted gifts vs. reported "unknown sender" gifts</td><td class="target">Near-zero reports</td></tr>
+      <tr><td>Revenue Share Accuracy</td><td>Fulfilled orders with correctly logged commission</td><td class="target">100% reconciled</td></tr>
+      <tr><td>Payment → Notification Latency</td><td>Time from payment complete to receiver notified</td><td class="target">&lt;5 seconds</td></tr>
+    </table>
+
+    <div class="gate-note"><b>Gate condition —</b> if Gift Redemption Rate doesn't reach 40% by end of Beta, Phase 2 scope holds until the conversion problem is diagnosed. Shared infrastructure can't be trusted at scale if the simplest filament isn't converting.</div>
+  </section>
+
+  <!-- REQUIREMENTS & READINESS -->
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Requirements &amp; Readiness</span>
+      <h2>What has to be true before this ships</h2>
+      <p class="lede">Ten functional requirements gate the MVP, five non-functional constraints protect trust and reliability, and the rollout is staged in three gated steps — none of these are optional polish.</p>
+    </div>
+
+    <table>
+      <tr><th>Requirement</th><th>Priority</th></tr>
+      <tr><td>In-app gift catalogue — browsable categories + search, inside the Giftify hub</td><td class="target">P0</td></tr>
+      <tr><td>Send-gift flow: select contact → item → pay → confirm, without leaving WhatsApp</td><td class="target">P0</td></tr>
+      <tr><td>Gift notification as a native chat-bubble, including sender identity</td><td class="target">P0</td></tr>
+      <tr><td>Accept / "Report as Unknown Sender," with automatic refund on rejection</td><td class="target">P0</td></tr>
+      <tr><td>Export-to-e-commerce: receiver selects partner; order + delivery owned by partner</td><td class="target">P0</td></tr>
+      <tr><td>Default delivery address from receiver's e-commerce account, overridable</td><td class="target">P0</td></tr>
+      <tr><td>Revenue-share / commission logging, reconciled against partner reporting</td><td class="target">P0</td></tr>
+      <tr><td>Appreciation-token / Hall-of-Fame engine tracking achievements → rewards</td><td class="target">P1</td></tr>
+      <tr><td>NLP contextual-trigger suggestions ("Happy Birthday" detection)</td><td class="target">P2</td></tr>
+      <tr><td>"Win Pentamesh Gifts" / cross-filament wishlist inside the Giftify hub</td><td class="target">P2</td></tr>
+    </table>
+
+    <div class="fil-meta" style="margin-top:32px; border-top:none; padding-top:0;">
+      <div class="block">
+        <div class="l">Non-functional constraints</div>
+        <div class="dep" style="margin-bottom:10px;"><b style="color:var(--text)">Anti-stalking:</b> sender identity never surfaces before accept/report; rejection triggers refund with no manual step.</div>
+        <div class="dep" style="margin-bottom:10px;"><b style="color:var(--text)">Payment security:</b> payment must capture and confirm before any receiver notification fires — no phantom-gift state.</div>
+        <div class="dep"><b style="color:var(--text)">Reliability:</b> payment → notification loop under 5 seconds end-to-end, every time.</div>
+      </div>
+      <div class="block">
+        <div class="l">Dependencies</div>
+        <div class="dep" style="margin-bottom:10px;">WhatsApp Business API &amp; catalogues — display gift items with descriptions/prices</div>
+        <div class="dep" style="margin-bottom:10px;">E-commerce API hooks — Amazon, Flipkart, Myntra order + default-address handoff</div>
+        <div class="dep" style="margin-bottom:10px;">Detection-only NLP engine — scans for celebratory triggers, retains no chat content</div>
+        <div class="dep">Reward-tracking backend — links achievements across future filaments to Giftify</div>
+      </div>
+    </div>
+
+    <table style="margin-top:36px;">
+      <tr><th>Stage</th><th>Scope</th><th>Gate to next stage</th></tr>
+      <tr><td class="target">Alpha</td><td>Gift catalogue, send/receive, accept/reject, one e-commerce partner</td><td>Latency target met; refund-on-reject verified end-to-end</td></tr>
+      <tr><td class="target">Beta</td><td>Expanded catalogue, 3 e-commerce partners, Hall-of-Fame enabled</td><td>Revenue Share Accuracy at 100% reconciliation, all partners</td></tr>
+      <tr><td class="target">GA</td><td>Full rollout, NLP contextual suggestions enabled</td><td>Gift Redemption Rate ≥40%, Acceptance baseline set from Beta</td></tr>
+    </table>
+  </section>
+
+  <!-- THE FIVE FILAMENTS -->
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">The Platform</span>
+      <h2>The five filaments</h2>
+      <p class="lede">Giftify is the one that's built — but Pentamesh was scoped as five filaments from day one. Every filament connects to all four others with its own named synergy: discovery, content circulation, live hosting, and reward recognition all cross-wire the mesh, not just a single shared backend.</p>
+    </div>
+
+    <div class="system-map">
+      <svg viewBox="0 0 700 640" xmlns="http://www.w3.org/2000/svg">
+        <!-- pentagon vertices: Giftify(top), Microspace, Edge Circles, Bridgernet, W Hall — clockwise -->
+        <!-- full mesh — all 10 edges, equal weight: every pair has its own named synergy -->
+        <line x1="350" y1="120" x2="559" y2="272" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="350" y1="120" x2="479" y2="518" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="350" y1="120" x2="221" y2="518" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="350" y1="120" x2="141" y2="272" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="559" y1="272" x2="479" y2="518" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="559" y1="272" x2="221" y2="518" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="559" y1="272" x2="141" y2="272" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="479" y1="518" x2="221" y2="518" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="479" y1="518" x2="141" y2="272" stroke="#6b6255" stroke-width="1.5"/>
+        <line x1="221" y1="518" x2="141" y2="272" stroke="#6b6255" stroke-width="1.5"/>
+
+        <!-- nodes, all equal size and weight -->
+        <g>
+          <circle cx="350" cy="120" r="42" fill="#1c1812" stroke="#e8663f" stroke-width="2"/>
+          <text x="350" y="113" text-anchor="middle" fill="#e8663f" font-family="IBM Plex Mono" font-size="8.5">PROTOTYPED — BOLT</text>
+          <text x="350" y="132" text-anchor="middle" fill="#f1ece0" font-family="Fraunces" font-size="15" font-weight="600">Giftify</text>
+        </g>
+        <g>
+          <circle cx="559" cy="272" r="42" fill="#1c1812" stroke="#5a5348" stroke-width="1.6"/>
+          <text x="559" y="277" text-anchor="middle" fill="#f1ece0" font-family="Inter" font-size="12.5" font-weight="600">Microspace</text>
+        </g>
+        <g>
+          <circle cx="479" cy="518" r="42" fill="#1c1812" stroke="#5a5348" stroke-width="1.6"/>
+          <text x="479" y="513" text-anchor="middle" fill="#f1ece0" font-family="Inter" font-size="12" font-weight="600">Edge</text>
+          <text x="479" y="529" text-anchor="middle" fill="#f1ece0" font-family="Inter" font-size="12" font-weight="600">Circles</text>
+        </g>
+        <g>
+          <circle cx="221" cy="518" r="42" fill="#1c1812" stroke="#5a5348" stroke-width="1.6"/>
+          <text x="221" y="523" text-anchor="middle" fill="#f1ece0" font-family="Inter" font-size="12.5" font-weight="600">Bridgernet</text>
+        </g>
+        <g>
+          <circle cx="141" cy="272" r="42" fill="#1c1812" stroke="#5a5348" stroke-width="1.6"/>
+          <text x="141" y="277" text-anchor="middle" fill="#f1ece0" font-family="Inter" font-size="12.5" font-weight="600">W Hall</text>
+        </g>
+
+        <!-- legend -->
+        <g transform="translate(20,600)">
+          <line x1="0" y1="0" x2="24" y2="0" stroke="#6b6255" stroke-width="1.5"/>
+          <text x="30" y="4" fill="#a89e8c" font-family="IBM Plex Mono" font-size="10.5">10 edges — every pair has its own named synergy, detailed below</text>
+        </g>
+      </svg>
+      <p class="map-caption">Pentamesh is a complete mesh, not a hub. Every filament connects to all four others with a distinct, named integration — not a generic "shared backend." Giftify is simply the one built and prototyped first, for its lowest build risk, not because it's architecturally central.</p>
+    </div>
+
+    <div class="matrix-grid">
+      <h4>10 connections — the actual mesh</h4>
+      <div class="conn-grid">
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-giftify.png" alt=""><img src="img/badge-edgecircles.png" alt=""></div>
+          <div class="conn-title">The Motivation Layer</div>
+          <p>Giftify rewards expert insight, learner growth, and admin service inside Edge Circles with recognition.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-giftify.png" alt=""><img src="img/badge-whall.png" alt=""></div>
+          <div class="conn-title">Attendance, Rewarded</div>
+          <p>Event participation in W Hall earns Giftify credits, spendable anywhere in the ecosystem.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-giftify.png" alt=""><img src="img/badge-bridgernet.png" alt=""></div>
+          <div class="conn-title">Asset Recognition</div>
+          <p>Exceptional uploaded assets on Bridgernet earn Giftify awards and competition credits.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-giftify.png" alt=""><img src="img/badge-microspace.png" alt=""></div>
+          <div class="conn-title">Best Work, Rewarded</div>
+          <p>Evaluated, standout Microspace content earns Giftify credits automatically.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-edgecircles.png" alt=""><img src="img/badge-whall.png" alt=""></div>
+          <div class="conn-title">Static Circles Go Live</div>
+          <p>Circles host expert sessions, workshops, and admin elections directly inside W Hall.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-edgecircles.png" alt=""><img src="img/badge-bridgernet.png" alt=""></div>
+          <div class="conn-title">The Discovery Gateway</div>
+          <p>Bridgernet grants open access into relevant circles, matched by interest and credentials.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-edgecircles.png" alt=""><img src="img/badge-microspace.png" alt=""></div>
+          <div class="conn-title">The Content Engine</div>
+          <p>AI circulates Microspace stories into relevant circles to fuel engagement and learning.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-whall.png" alt=""><img src="img/badge-bridgernet.png" alt=""></div>
+          <div class="conn-title">Auto-Access for Subscribers</div>
+          <p>Bridgernet subscribers get AI-matched automatic entry to relevant W Hall events — celebrity sessions, premieres.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-whall.png" alt=""><img src="img/badge-microspace.png" alt=""></div>
+          <div class="conn-title">Fills the Dead Air</div>
+          <p>Microspace content plays during breaks or technical delays — and can host its own W Hall sessions too.</p>
+        </div>
+        <div class="conn-card">
+          <div class="conn-badges"><img src="img/badge-bridgernet.png" alt=""><img src="img/badge-microspace.png" alt=""></div>
+          <div class="conn-title">Shared Content Pool</div>
+          <p>Relevant creative content is cross-shared between both filaments.</p>
+        </div>
+      </div>
+      <p class="shot-caption" style="margin-top:22px;">Plus one proof point already live in the Giftify prototype: right after payment, the sender is asked to "Gift a Pentamesh member from Edge Circles / Bridgernet / W Hall / Microspace" — the mesh reaching into a real screen, not just a diagram.</p>
+    </div>
+
+    <div class="filaments">
+
+      <div class="filament is-live">
+        <div class="fil-head">
+          <span class="phase">Phase 1</span>
+          <span class="status">Live — MVP-ready</span>
+        </div>
+        <h3><img class="badge-icon" src="img/badge-giftify.png" alt="">Giftify</h3>
+        <p class="desc">In-chat gifting: send a real, deliverable gift without leaving WhatsApp. Fulfilment fully outsourced to e-commerce partners — WhatsApp owns discovery and notification only, never inventory or logistics.</p>
+        <div class="fil-meta">
+          <div class="block">
+            <div class="l">Key metrics</div>
+            <div class="metric-line">Gift Redemption Rate — <b>≥40% → &gt;65%</b></div>
+            <div class="metric-line">Payment → Notification latency — <b>&lt;5s</b></div>
+          </div>
+          <div class="block">
+            <div class="l">Key dependency</div>
+            <div class="dep">WhatsApp Business API/catalogues, e-commerce partner API hooks, payment gateway</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filament">
+        <div class="fil-head">
+          <span class="phase">Phase 2</span>
+          <span class="status">Discovery</span>
+        </div>
+        <h3><img class="badge-icon" src="img/badge-microspace.png" alt="">Microspace — Content as Commerce</h3>
+        <p class="desc">Short literary works reformatted into chat-native serialised "chat-fiction," distributed through WhatsApp Status. At a cliffhanger, an "Unlock the book" action routes the reader to an e-commerce partner — WhatsApp earns an affiliate commission on the sale.</p>
+        <div class="fil-meta">
+          <div class="block">
+            <div class="l">Key metrics</div>
+            <div class="metric-line">Cliffhanger click-through rate — <b>2–5%</b></div>
+            <div class="metric-line">Notification open rate — <b>&gt;80%</b></div>
+          </div>
+          <div class="block">
+            <div class="l">Key dependency</div>
+            <div class="dep">Content Evaluation Workflow — backend review/approval of submitted story excerpts before circulation</div>
+          </div>
+        </div>
+        <div class="fil-shots">
+          <img src="img/problem-microspace.png" alt="Microspace — the broken discovery funnel for talented but unseen writers, and the Microspace fix">
+        </div>
+        <div class="fil-shots-wide">
+          <img src="img/flow-microspace-full.jpg" alt="Full Microspace flow — board, story reader, unlock-the-book export, broadcast asset, micro lens, asset analytics">
+        </div>
+        <p class="shot-caption">9 screens — board, story reader, unlock-the-book export, broadcast asset, analytics</p>
+      </div>
+
+      <div class="filament">
+        <div class="fil-head">
+          <span class="phase">Phase 3</span>
+          <span class="status">Discovery</span>
+        </div>
+        <h3><img class="badge-icon" src="img/badge-edgecircles.png" alt="">Edge Circles — Verified Expert Communities</h3>
+        <p class="desc">Niche, verified communities connecting experts and learners across sectors. Admission is screened through a "WhatsApp Edge Protocol" and governed by rotating, democratically elected admins — not platform moderators.</p>
+        <div class="fil-meta">
+          <div class="block">
+            <div class="l">Key metrics</div>
+            <div class="metric-line">Circle Relevance Index — <b>≥85%</b></div>
+            <div class="metric-line">Learner-to-Expert Conversion — <b>≥30% in 5 months</b></div>
+          </div>
+          <div class="block">
+            <div class="l">Key dependency</div>
+            <div class="dep">Verification protocol + AI-driven community matching engine</div>
+          </div>
+        </div>
+        <div class="fil-shots">
+          <img src="img/problem-edgecircles.png" alt="Edge Circles — the chaos of unorganized groups vs. a filtered, verified circle">
+        </div>
+        <div class="fil-shots-wide">
+          <img src="img/flow-edgecircles-full.jpg" alt="Full Edge Circles flow — home, My Edge Space profile, live design sprint circle, access circles, filmmakers circle">
+        </div>
+        <p class="shot-caption">5 screens — home, profile, live circle, access circles, filmmakers circle</p>
+      </div>
+
+      <div class="filament">
+        <div class="fil-head">
+          <span class="phase">Phase 4</span>
+          <span class="status">Discovery</span>
+        </div>
+        <h3><img class="badge-icon" src="img/badge-bridgernet.png" alt="">Bridgernet — Talent Meets Opportunity</h3>
+        <p class="desc">A supply pool (scriptwriters, composers, inventors) matched to a demand pool (directors, producers, investors) with no traditional gatekeepers. Uploaded assets get an instant Certificate of Digital Deposit, are evaluated for quality, and matched to relevant Seeker requirements.</p>
+        <div class="fil-meta">
+          <div class="block">
+            <div class="l">Key metrics</div>
+            <div class="metric-line">Project Fill Rate — <b>&gt;80%</b></div>
+            <div class="metric-line">IP Dispute Incidence — <b>near 0%</b></div>
+          </div>
+          <div class="block">
+            <div class="l">Key dependency</div>
+            <div class="dep">Asset Management System — secure digital vault + Certificate of Digital Deposit generation</div>
+          </div>
+        </div>
+        <div class="fil-shots">
+          <img src="img/problem-bridgernet.png" alt="Bridgernet — invisible talent lost to gatekept platforms, vs. a verified professional connection">
+        </div>
+        <div class="fil-shots-wide">
+          <img src="img/flow-bridgernet-full.jpg" alt="Full Bridgernet flow — home, broadcast asset, Certificate of Digital Deposit, Bridge Pipeline, my bridge, bridge access">
+        </div>
+        <p class="shot-caption">6 screens — home, broadcast asset, Certificate of Digital Deposit, pipeline, access</p>
+      </div>
+
+      <div class="filament">
+        <div class="fil-head">
+          <span class="phase">Phase 5</span>
+          <span class="status">Discovery</span>
+        </div>
+        <h3><img class="badge-icon" src="img/badge-whall.png" alt="">W Hall — The Live Layer</h3>
+        <p class="desc">An inbuilt virtual meeting space — centralised event calendar, tiered-subscription workshop access, secure entry-pass verification — positioned as the live engagement layer for events generated by the other four filaments.</p>
+        <div class="fil-meta">
+          <div class="block">
+            <div class="l">Key metrics</div>
+            <div class="metric-line">Event Participation Rate — <b>≥60%</b> of Edge Circle members attending hosted sessions</div>
+          </div>
+          <div class="block">
+            <div class="l">Key dependency</div>
+            <div class="dep">Concurrency load testing — infrastructure support for large simultaneous attendance without lag</div>
+          </div>
+        </div>
+        <div class="fil-shots">
+          <img src="img/problem-whall.png" alt="W Hall — too many disconnected video-call tools vs. one Pentamesh-native live layer">
+        </div>
+        <div class="fil-shots-wide">
+          <img src="img/flow-whall-full.jpg" alt="Full W Hall flow — home, hall schedule, reserve a hall, calendar picker, entry pass wallet, checkout, confirmation">
+        </div>
+        <p class="shot-caption">11 screens — home, schedule, reserve a hall, calendar, entry pass, checkout, confirmed</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RISKS -->
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Risks</span>
+      <h2>What could break this</h2>
+    </div>
+    <div class="risk-row">
+      <div class="risk">Platform identity dilution — WhatsApp starts reading as an e-commerce app</div>
+      <div class="mit">All fulfilment and logistics fully outsourced to partners; WhatsApp's role stays discovery + notification only.</div>
+    </div>
+    <div class="risk-row">
+      <div class="risk">Gifting becomes a harassment / spam vector</div>
+      <div class="mit">Mandatory accept/report step before sender identity surfaces; automatic refund on rejection; moderator dashboard for repeat offenders.</div>
+    </div>
+    <div class="risk-row">
+      <div class="risk">Revenue-share commission errors at scale</div>
+      <div class="mit">100% reconciliation required against partner reporting before GA; logic sandbox-tested before Beta.</div>
+    </div>
+    <div class="risk-row">
+      <div class="risk">NLP trigger detection reads as a privacy violation</div>
+      <div class="mit">Detection-only architecture, zero chat-content retention, opt-in and clearly disclosed.</div>
+    </div>
+  </section>
+
+  <!-- REFLECTION -->
+  <section class="reflection">
+    <div class="section-head">
+      <span class="eyebrow">PM Reflection</span>
+      <h2>What I'd lead with</h2>
+    </div>
+    <blockquote>"The hardest part wasn't designing five features — it was deciding which one to build first, and being able to defend that on more than 'it felt like a good idea.'"</blockquote>
+    <p>The Impact-vs-Effort exercise forced a discipline an unstructured five-feature draft never would have: Giftify had to earn its own user value <em>and</em> justify the shared system it leaves behind. If I were presenting this to a cross-functional team, I wouldn't lead with five separate PRDs — I'd lead with the phased rollout table. It answers the question every stakeholder asks first: what are we shipping now, and how does it set up what comes next?</p>
+  </section>
+
+  <footer>
+    <p>Pentamesh · Thasleema A S · Associate Product Manager</p>
+    <div class="links">
+      <a href="https://giftify-ecosystem-pr-76z0.bolt.host" target="_blank">Live Prototype ↗</a>
+      <a href="#" target="_blank">Figma ↗</a>
+      <a href="#" target="_blank">Jira ↗</a>
+      <a href="#" target="_blank">Notion Case Study ↗</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
